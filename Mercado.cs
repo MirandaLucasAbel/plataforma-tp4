@@ -110,9 +110,9 @@ namespace tp1
             return this.productoDao.delete(id);
                 }
 
-        internal double calcularCompra(int idUsuario)
+        internal decimal calcularCompra(int idUsuario)
         {
-            double total = this.usuario.MiCarro.calcularTotal();
+            decimal total = this.usuario.MiCarro.calcularTotal();
         
             return total;
          }

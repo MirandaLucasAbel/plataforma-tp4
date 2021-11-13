@@ -38,9 +38,9 @@ namespace tp1
             return true;
         }
 
-        internal double calcularTotal()
+        internal decimal calcularTotal()
         {
-            double total = 0;
+            decimal total = 0;
             foreach (KeyValuePair<int, int> prod in productos)
             {
                 ProductoDAO1 dao = new ProductoDAO1();

@@ -33,7 +33,7 @@ namespace dao
 
                
                 string nombre;
-                double precio;
+                decimal precio;
                 int cantidad;
                 int categoria;
                 string nombreCateg;
@@ -43,7 +43,7 @@ namespace dao
                 {
                     id = Int32.Parse(data.GetValue(0).ToString());
                     nombre = (data.GetValue(1).ToString());
-                    precio = Double.Parse(data.GetValue(2).ToString());
+                    precio = Decimal.Parse(data.GetValue(2).ToString());
                     cantidad = Int32.Parse(data.GetValue(3).ToString());
                     categoria = Int32.Parse(data.GetValue(4).ToString());
                     nombreCateg = (data.GetValue(5).ToString());
@@ -85,14 +85,7 @@ namespace dao
             }
             catch (Exception ex)
             {
-                /*
-				//en caso de no haber datos se genera un admin y se guarda en el archivo
-				Console.WriteLine("archivo no encontrado, se inicializa un objeto vacio para productos");
-				usuarios = new List<Usuario>();
-				usuarios.Add(new Usuario(0, 0000, "admin", "admin", "admin@gmail.com", "admin", "admin", "000"));
-				usuarios.Add(new Usuario(1, 0001, "cliente", "cliente", "cliente@gmail.com", "cliente", "cliente", "001"));
-				saveAll(usuarios);
-				*/
+                
                 productos = null;
             }
             finally

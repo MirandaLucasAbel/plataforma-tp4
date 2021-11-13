@@ -3,19 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tp1
 {
-    [Serializable]
+    
+
     public class Producto
     {
         public int id { get; set; }
         public string nombre { get; set; }
-        public double precio { get; set; }
+        public decimal precio { get; set; }
         public int cantidad { get; set; }
+
 
    
         public Categoria categoria { get; set; }
         
         public Producto() { }
-        public Producto(int id, string nombre,double precio, int cantidad, Categoria categoria){
+        public Producto(int id, string nombre,decimal precio, int cantidad, Categoria categoria){
 
             this.id = id;
             this.nombre = nombre;

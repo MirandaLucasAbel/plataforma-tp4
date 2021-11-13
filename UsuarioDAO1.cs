@@ -97,14 +97,7 @@ namespace dao
 			}
 			catch (Exception ex)
 			{
-				/*
-				//en caso de no haber datos se genera un admin y se guarda en el archivo
-				Console.WriteLine("archivo no encontrado, se inicializa un objeto vacio para productos");
-				usuarios = new List<Usuario>();
-				usuarios.Add(new Usuario(0, 0000, "admin", "admin", "admin@gmail.com", "admin", "admin", "000"));
-				usuarios.Add(new Usuario(1, 0001, "cliente", "cliente", "cliente@gmail.com", "cliente", "cliente", "001"));
-				saveAll(usuarios);
-				*/
+				Console.WriteLine(ex.Message);
 				usuarios = null;
 			}
             finally
@@ -186,23 +179,9 @@ namespace dao
 
 		public void getUserByTest()
 		{
-			//creo un contexto
+			//metodo para prueba
 			contexto = new MyContext();
-			//cargo los usuarios
-			//contexto.usuarios;
 			contexto.usuarios.Load();
-			//seteo relación de paises
-			Console.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
-			contexto.usuarios.Where(u => u.id == 1).FirstOrDefault();
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
-			Console.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
-
 			MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}
 
