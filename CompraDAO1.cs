@@ -92,7 +92,7 @@ public class CompraDAO1 : DataBaseConfig
 
         int id_producto;
         int cantidad;
-        decimal total;
+		double total;
         try
         {
             foreach (KeyValuePair<int, int> kvp in carro.productos)

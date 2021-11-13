@@ -37,7 +37,7 @@ namespace Slc_Mercado
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int idUsuario = mercado.getUsuario().id;
+            int idUsuario = mercado.getUsuario().usuario_id;
 
             string message = mercado.mostrarCarro(); 
             string caption = "Desea confirmar la compra?";
@@ -89,7 +89,7 @@ namespace Slc_Mercado
         {
             foreach (Producto prod in productos)
             {
-                datos.Add(new List<string>(new string[] { prod.id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString() }));
+                datos.Add(new List<string>(new string[] { prod.producto_id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString() }));
             }
         }
 
@@ -134,7 +134,7 @@ namespace Slc_Mercado
             int idUsuario = 0;
             //usuario.id = 0; //sacar esto
             //mercado.vaciarCarro(usuario.id);
-            mercado.vaciarCarro(this.mercado.getUsuario().id);
+            mercado.vaciarCarro(this.mercado.getUsuario().usuario_id);
             textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
             MessageBox.Show("Carrito vaciado con exito");
         }
@@ -150,7 +150,7 @@ namespace Slc_Mercado
             {
                 int id_producto;
 
-                int idUsuario = mercado.getUsuario().id;
+                int idUsuario = mercado.getUsuario().usuario_id;
                 int cantidadProd;
 
                 int.TryParse(dataGridView2.Rows[0].Cells[0].Value.ToString(), out id_producto);

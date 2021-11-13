@@ -60,6 +60,9 @@ namespace Clase7
             modelBuilder.Entity<Carro>()
                 .ToTable("Carros")
                 .HasKey(Ca => Ca.carro_id);
+            modelBuilder.Entity<Compra>()
+               .ToTable("compras")
+               .HasKey(Co => Co.id);
 
         }
     }

@@ -116,7 +116,7 @@ namespace Slc_Mercado
                 columnas.Add("Cuil-Cuit");
                 foreach (Usuario user in usuarios)
                 {
-                    datos.Add(new List<string>(new string[] { user.id.ToString(), user.dni.ToString(), user.nombre.ToString(), user.apellido.ToString(), user.mail.ToString(), user.password.ToString(), user.tipo.ToString(), user.cuil.ToString(), }));
+                    datos.Add(new List<string>(new string[] { user.usuario_id.ToString(), user.dni.ToString(), user.nombre.ToString(), user.apellido.ToString(), user.mail.ToString(), user.password.ToString(), user.tipo.ToString(), user.cuil.ToString(), }));
                 }
 
             }
@@ -130,7 +130,7 @@ namespace Slc_Mercado
                 columnas.Add("Categoria");
                 foreach (Producto prod in productos)
                 {
-                    datos.Add(new List<string>(new string[] { prod.id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString(), prod.categoria.id.ToString() }));
+                    datos.Add(new List<string>(new string[] { prod.producto_id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString(), prod.categoria.categoria_id.ToString() }));
                 }
 
             }
@@ -141,7 +141,7 @@ namespace Slc_Mercado
                 columnas.Add("Nombre");
                 foreach (Categoria cat in categorias)
                 {
-                    datos.Add(new List<string>(new string[] { cat.id.ToString(), cat.nombre.ToString() }));
+                    datos.Add(new List<string>(new string[] { cat.categoria_id.ToString(), cat.nombre.ToString() }));
                 }
 
             }

@@ -9,7 +9,7 @@ namespace tp1
     {
         public int producto_id { get; set; }
         public string nombre { get; set; }
-        public decimal precio { get; set; }
+        public double precio { get; set; }
         public int cantidad { get; set; }
 
 
@@ -17,7 +17,7 @@ namespace tp1
         public Categoria categoria { get; set; }
         
         public Producto() { }
-        public Producto(int id, string nombre,decimal precio, int cantidad, Categoria categoria){
+        public Producto(int id, string nombre, double precio, int cantidad, Categoria categoria){
 
             this.producto_id = id;
             this.nombre = nombre;
@@ -27,7 +27,7 @@ namespace tp1
         
         }
 
-        public Producto( string nombre, decimal precio, int cantidad, Categoria categoria)
+        public Producto( string nombre, double precio, int cantidad, Categoria categoria)
         {
 
             this.nombre = nombre;

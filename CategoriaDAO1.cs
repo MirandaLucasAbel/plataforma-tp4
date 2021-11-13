@@ -64,7 +64,7 @@ namespace dao
         {
             bool salida = false;
             foreach (Categoria c in contexto.categorias)
-                if (c.id == id)
+                if (c.categoria_id == id)
                 {
                     c.nombre = nombre;
                     contexto.categorias.Update(c);
@@ -81,7 +81,7 @@ namespace dao
             {
                 bool salida = false;
                 foreach (Categoria c in contexto.categorias)
-                    if (c.id == id)
+                    if (c.categoria_id == id)
                     {
                         contexto.categorias.Remove(c);
                         salida = true;
@@ -105,7 +105,7 @@ namespace dao
                 contexto = new MyContext();
                 contexto.categorias.Load();
 
-                categoria = contexto.categorias.Where(C => (C.id == id )).FirstOrDefault();
+                categoria = contexto.categorias.Where(C => (C.categoria_id == id )).FirstOrDefault();
             }
             catch (Exception ex)
             {

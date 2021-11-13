@@ -12,6 +12,7 @@ namespace tp1
     {
         public int carro_id { get; set; }
         public int usuario_id { get; set; }
+        public Usuario usuario { get; set; }
         public Dictionary<int, int> productos { get; set; }
 
         public Carro() {
@@ -39,9 +40,9 @@ namespace tp1
             return true;
         }
 
-        internal decimal calcularTotal()
+        internal double calcularTotal()
         {
-            decimal total = 0;
+            double total = 0;
             foreach (KeyValuePair<int, int> prod in productos)
             {
                 ProductoDAO1 dao = new ProductoDAO1();

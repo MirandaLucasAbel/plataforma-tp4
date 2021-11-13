@@ -11,7 +11,7 @@ namespace Slc_Mercado
         public int id { get; set; }
         public Usuario comprador { get; set; }
         public Dictionary <Producto,int> productos;
-        public decimal total { get; set; }
+        public double total { get; set; }
 
         public Compra() { }
         public Compra(int id,Usuario comprador, Dictionary<Producto,int> productosCarrito) {
@@ -31,9 +31,9 @@ namespace Slc_Mercado
             return "ID: "+ this.id + "- Usuario: " + this.comprador.ToString() + "- Productos: " + this.productos.ToString() + "- Total: " + this.total;
         }
 
-        internal decimal calcularCompra()
+        internal double calcularCompra()
         {
-            decimal suma = 0;
+            double suma = 0;
             foreach (KeyValuePair<Producto, int> kvp in productos)
             {
                 suma += kvp.Key.precio * kvp.Value; //revisar getter
@@ -49,7 +49,7 @@ namespace Slc_Mercado
 
             foreach (KeyValuePair<Producto, int> kvp in productos)
             {
-                aux  += "id: "+kvp.Key.id + " nombre: "+kvp.Key.nombre + " precio: "+kvp.Key.precio + " cantidad:"+ kvp.Value; 
+                aux  += "id: "+kvp.Key.producto_id + " nombre: "+kvp.Key.nombre + " precio: "+kvp.Key.precio + " cantidad:"+ kvp.Value; 
 
             }
             return aux;
