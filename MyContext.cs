@@ -37,17 +37,17 @@ namespace Clase7
         {
             modelBuilder.Entity<Categoria>()
                 .ToTable("categorias")
-                .HasKey(C => C.id);
+                .HasKey(C => C.categoria_id);
 
 
             modelBuilder.Entity<Producto>()
                 .ToTable("producto")
-                .HasKey(P => P.id);
+                .HasKey(P => P.producto_id);
 
             modelBuilder.Entity<Producto>()
                 .HasOne(P => P.categoria)
                 .WithMany(C => C.productos)
-                .HasForeignKey(C => C.id);
+                .HasForeignKey(C => C.producto_id);
             
             modelBuilder.Entity<Usuario>()
                 .ToTable("usuarios")

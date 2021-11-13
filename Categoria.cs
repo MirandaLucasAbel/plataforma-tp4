@@ -8,7 +8,7 @@ namespace tp1
  
     public class Categoria
     {
-         public int id { get; set; }
+         public int categoria_id { get; set; }
         public string nombre { get; set; }
 
         public ICollection<Producto> productos { get; set; }
@@ -17,7 +17,7 @@ namespace tp1
         public Categoria() { }
 public Categoria(int id, string nombre)
         {
-            this.id = id;
+            this.categoria_id = id;
             this.nombre = nombre;
         }
 
@@ -28,7 +28,7 @@ public Categoria(int id, string nombre)
 
        public string  toString()
         {
-            return "Categoria: " + this.id + " - Nombre: " + this.nombre;
+            return "Categoria: " + this.categoria_id + " - Nombre: " + this.nombre;
         }
     }
 }

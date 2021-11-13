@@ -190,7 +190,7 @@ namespace tp1
             int contadorErrores = 0;
             foreach (Usuario us in usuarios)
             {
-                if (us.id == id)
+                if (us.usuario_id == id)
                 {
                     if (cuit_Cuil.Length == 11)
                     {
@@ -291,7 +291,7 @@ namespace tp1
 
             public List<Categoria> mostrarCategorias()
             {
-            categorias = categorias.OrderBy(o => o.id).ToList();
+            categorias = categorias.OrderBy(o => o.categoria_id).ToList();
             return categorias;
             /*foreach (Categoria cat in categorias)
             {
@@ -302,7 +302,7 @@ namespace tp1
 
         public List<Categoria> buscarProductosPorCategoria(string nombreCateg) 
         {
-            categorias = categorias.OrderBy(o => o.id).ToList();
+            categorias = categorias.OrderBy(o => o.categoria_id).ToList();
             List<Producto> aux = new List<Producto>();
             foreach (Producto prod in productos)
             {
@@ -387,7 +387,7 @@ namespace tp1
             {
 
                 int pedido = prod.Value;
-                int stock = getProductoById(prod.Key.id).cantidad;
+                int stock = getProductoById(prod.Key.producto_id).cantidad;
 
                 if ((stock < pedido))
                 {
@@ -414,7 +414,7 @@ namespace tp1
         {
             foreach(Producto prod in productos)
             {
-                if(prod.id == idProd)
+                if(prod.producto_id == idProd)
                 {
                     return prod.cantidad;
                 }
@@ -439,7 +439,7 @@ namespace tp1
   
         public List<Producto> mostrarTodosProductos()
         {
-            productos.Sort((a, b) => a.id.CompareTo(b.id));
+            productos.Sort((a, b) => a.producto_id.CompareTo(b.producto_id));
             return productos;
             /*foreach (Producto pr in producto)
             {
@@ -457,7 +457,7 @@ namespace tp1
 
             public List<Producto> mostrarTodosProductosPorCategoria() //MUESTRA TODAS LAS CATEGORIAS DEL MERCADO Y PARA CADA UNA DE ELLAS, LOS PRODUCTOS DENTRO DE LA MISMA.
             {
-            return productos.OrderBy(pr => pr.categoria.id).ToList();
+            return productos.OrderBy(pr => pr.categoria.categoria_id).ToList();
             }
 
 

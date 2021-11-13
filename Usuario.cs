@@ -6,7 +6,7 @@ namespace tp1
 
     public class Usuario
     {
-        public int id { get; set; }
+        public int usuario_id { get; set; }
         public int dni { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
@@ -20,7 +20,7 @@ namespace tp1
 
         public Usuario(int id, int dni, string nombre, string apellido, string mail, string password, string tipo, string cuilCuit)
         {
-            this.id = id;
+            this.usuario_id = id;
             this.dni = dni;
             this.nombre = nombre;
             this.apellido = apellido;
@@ -37,7 +37,7 @@ namespace tp1
 
         public string toString()
         {
-            return "Usuario: " + this.id + " - Dni " + this.dni + " - Nombre " + this.nombre + " - Apellido " + this.apellido + " - Mail " + this.mail + " - Cuil/Cuit:" + this.cuil + " - Tipo de Usuario:" + this.tipo; // " - Carro :" + MiCarro.toString();
+            return "Usuario: " + this.usuario_id + " - Dni " + this.dni + " - Nombre " + this.nombre + " - Apellido " + this.apellido + " - Mail " + this.mail + " - Cuil/Cuit:" + this.cuil + " - Tipo de Usuario:" + this.tipo; // " - Carro :" + MiCarro.toString();
         }
     }
 }
