@@ -7,7 +7,7 @@ namespace tp1
 
 {
 
-    [Serializable]
+    
     public class Carro
     {
         public int id { get; set; }

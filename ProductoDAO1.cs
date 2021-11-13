@@ -5,9 +5,10 @@ using System.IO;
 using System.Collections.Generic;
 using tp1;
 using config;
-using System.Data.SqlClient;
+
 using Clase7;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace dao
 {
@@ -15,7 +16,7 @@ namespace dao
     {
 
         
-        private string tabla = "producto";
+       
         private MyContext contexto;
 
         public ProductoDAO1()
@@ -24,50 +25,26 @@ namespace dao
 
         public Producto get(int id)
         {
-            Producto producto = null;
-
+            Producto producto = new Producto();
             try
             {
-                string sql = $"use [ecommerce-plataforma]; select p.id, p.nombre, precio, cantidad, c.id, c.nombre from { tabla}  p inner join categorias c on p.id_categoria = c.id where p.id = {id}; ";
-                SqlDataReader data = ejecutarQuery(sql);
+                contexto = new MyContext();
+                contexto.categorias.Load();
 
-               
-                string nombre;
-                decimal precio;
-                int cantidad;
-                int categoria;
-                string nombreCateg;
-                Categoria categ;
-
-                while (data.Read())
-                {
-                    id = Int32.Parse(data.GetValue(0).ToString());
-                    nombre = (data.GetValue(1).ToString());
-                    precio = Decimal.Parse(data.GetValue(2).ToString());
-                    cantidad = Int32.Parse(data.GetValue(3).ToString());
-                    categoria = Int32.Parse(data.GetValue(4).ToString());
-                    nombreCateg = (data.GetValue(5).ToString());
-
-
-                    categ = new Categoria(id, nombreCateg); //revisar
-
-                    producto = new Producto(id, nombre, precio, cantidad, categ);// categoria); //revisar
-                   
-                }
+                producto = contexto.producto.Where(P => (P.id == id)).FirstOrDefault();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("archivo no encontrado");
+                Console.WriteLine(ex.Message);
                 producto = null;
             }
-
             finally
             {
                 conexion.Close();
             }
-
             return producto;
         }
+    
 
         public List<Producto> getAll()
         {
@@ -76,10 +53,10 @@ namespace dao
         
             try
             {
-                contexto = new MyContext();
-                contexto.producto.Load();
+            contexto = new MyContext();
+            contexto.producto.Load();
 
-                foreach (Producto P in contexto.producto)
+            foreach (Producto P in contexto.producto)
                     productos.Add(P);
 
             }
@@ -101,49 +78,38 @@ namespace dao
             throw new NotImplementedException();
         }
 
-        public bool insert(string nombre, double precio, int cantidad, int id_categoria)
+        public bool insert(string nombre, decimal precio, int cantidad, int id_categoria)
         {
-            bool flag = true;
-
             try
             {
-
-                string sql = $"use [ecommerce-plataforma]; insert into {tabla} (nombre, precio, cantidad, id_categoria) values ('{nombre}','{precio}','{cantidad}','{id_categoria}');";
-                SqlDataReader data = ejecutarQuery(sql);
-
+                //conseguir la categoria para insertar
+                Producto producto = new Producto(nombre,precio,cantidad,null);
+                contexto.producto.Add(producto);
+                contexto.SaveChanges();
+                return true;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                flag = false;
+                return false;
             }
-            finally
-            {
-                conexion.Close();
-            }
-            return flag;
         }
 
-        public bool update(int id, string nombreProd,double precioProd, int cantProd,int idCateg )
+        public bool update(int id, string nombreProd,decimal precioProd, int cantProd,int idCateg )
         {
-            bool flag = true;
-            try
-            {
-                string sql = $"use[ecommerce - plataforma]; update productos set nombre = '{nombreProd}', precio = '{precioProd}', cantidad = '{cantProd}', categoria = '{idCateg}' where id = '{id};";
-                SqlDataReader data = ejecutarQuery(sql);
-
-                ejecutarQuery(sql);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                flag = false;
-            }
-            finally
-            {
-                conexion.Close();
-            }
-            return flag;
+            bool salida = false;
+            foreach (Producto p in contexto.producto)
+                if (p.id == id)
+                {
+                    p.nombre = nombreProd;
+                    p.precio = precioProd;
+                    p.cantidad = cantProd;
+                    p.categoria.id = idCateg; //revisar
+                    salida = true;
+                }
+            if (salida)
+                contexto.SaveChanges();
+            return salida;
         }
 
         internal List<Producto> getByPrice(string query)
@@ -163,25 +129,23 @@ namespace dao
 
         public bool delete (int id)
         {
-            bool flag = true;
             try
             {
-                string sql = $"use [ecommerce-plataforma]; delete from {tabla} where id = {id};";
-                SqlDataReader data = ejecutarQuery(sql);
-
-                ejecutarQuery(sql);
-
+                bool salida = false;
+                foreach (Producto p in contexto.producto)
+                    if (p.id == id)
+                    {
+                        contexto.producto.Remove(p);
+                        salida = true;
+                    }
+                if (salida)
+                    contexto.SaveChanges();
+                return salida;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Console.WriteLine(ex.Message);
-                flag = false;
+                return false;
             }
-            finally
-            {
-                conexion.Close();
-            }
-            return flag;
         }
 
         internal Producto getAllByName(string nombre)

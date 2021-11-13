@@ -27,6 +27,16 @@ namespace tp1
         
         }
 
+        public Producto( string nombre, decimal precio, int cantidad, Categoria categoria)
+        {
+
+            this.nombre = nombre;
+            this.precio = precio;
+            this.cantidad = cantidad;
+            this.categoria = categoria;
+
+        }
+
         public  string toString()
         {
             return "Producto: id " + this.id + " - nombre " + this.nombre + " - precio " + this.precio + " - cantidad " + this.cantidad + " - " + this.categoria.toString();

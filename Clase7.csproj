@@ -9,7 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DNI.cs" />
+    <Compile Remove="Domicilio.cs" />
     <Compile Remove="EmpresaDAO.cs" />
+    <Compile Remove="UsuarioManager.cs" />
+    <Compile Remove="Usuario_ejemplo.cs" />
   </ItemGroup>
 
   <ItemGroup>
