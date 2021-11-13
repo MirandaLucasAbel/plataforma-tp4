@@ -4,13 +4,15 @@
 namespace tp1
 {
     [Serializable]
+
+ 
     public class Categoria
     {
          public int id { get; set; }
         public string nombre { get; set; }
 
 
-
+public Categoria() { }
 public Categoria(int id, string nombre)
         {
             this.id = id;

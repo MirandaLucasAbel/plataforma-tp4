@@ -2,26 +2,44 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Slc_Mercado;
+using tp1;
 
 namespace Clase7
 {
     class MyContext : DbContext
     {
+        /*
         public DbSet<Usuario_ejemplo> usuarios { get; set; }
         public DbSet<Pais> paises { get; set; }
         public DbSet<Domicilio> domicilios { get; set; }
-        public DbSet<DNI> identidades { get; set; }
+       
+
+        public ICollection<Usuario> usuarios2 { get; set; }
+        */
+
+        public DbSet<Usuario> usuarios { get; set; }
+
+        public DbSet<Categoria> categorias { get; set; }
+
+        public DbSet<Producto> producto { get; set; }
+
+        public DbSet<Compra> compras { get; set; }
+
+       // public DbSet<Carro> carro { get; set; }
+
+
 
         public MyContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseSqlServer(Properties.Resources.ConnectionString);
+            optionsBuilder.UseSqlServer(@"data source=localhost\SQLEXPRESS;initial catalog=ecommerce-plataforma;trusted_connection=true"); // Properties.Resources.ConnectionString);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //nombre de la tabla
-            modelBuilder.Entity<Usuario_ejemplo>()
+            /*modelBuilder.Entity<Usuario_ejemplo>()
                 .ToTable("Usuarios")
                 .HasKey(u => u.num_usr);
 
@@ -100,7 +118,9 @@ namespace Clase7
                 new { id = 7, altura = 1, calle = "Callao", num_usr = 4 },
                 new { id = 8, altura = 1, calle = "Rivadavia", num_usr = 5 });
 
+            */
 
+            /*
 
             //propiedades de los datos
             modelBuilder.Entity<Usuario_ejemplo>(
@@ -114,6 +134,7 @@ namespace Clase7
                 });
             //Ignoro, no agrego UsuarioManager a la base de datos
             modelBuilder.Ignore<UsuarioManager>();
+            */
         }
     }
 }

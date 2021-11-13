@@ -7,6 +7,7 @@ namespace Clase7
 {
     class Usuario_ejemplo
     {
+        /*
         public int num_usr { get; set; }
         public DNI dni { get; set; }
         public string nombre { get; set; }
@@ -39,6 +40,6 @@ namespace Clase7
         {
             return new string[] { dni.numero.ToString(), nombre, mail, password, esADM.ToString(), bloqueado.ToString() };
         }
-
+        */
     }
 }

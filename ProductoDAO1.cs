@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using tp1;
 using config;
 using System.Data.SqlClient;
+using Clase7;
+using Microsoft.EntityFrameworkCore;
 
 namespace dao
 {
@@ -14,6 +16,7 @@ namespace dao
 
         
         private string tabla = "producto";
+        private MyContext contexto;
 
         public ProductoDAO1()
         {
@@ -70,40 +73,28 @@ namespace dao
         {
             List<Producto> productos = new List<Producto>();
 
+        
             try
             {
-                string sql = $"use [ecommerce-plataforma]; select p.id, p.nombre, precio, cantidad, c.id, c.nombre from { tabla}  p inner join categorias c on p.id_categoria = c.id; "; 
-                SqlDataReader data = ejecutarQuery(sql);
+                contexto = new MyContext();
+                contexto.producto.Load();
 
-                Producto producto = null;
-                int id;
-                string nombre;
-                double precio;
-                int cantidad;
-                int categoria;
-                Categoria categ;
+                foreach (Producto P in contexto.producto)
+                    productos.Add(P);
 
-                while (data.Read())
-                {
-                    id = Int32.Parse(data.GetValue(0).ToString());
-                    nombre = (data.GetValue(1).ToString());
-                    precio = Double.Parse(data.GetValue(2).ToString());
-                    cantidad = Int32.Parse(data.GetValue(3).ToString());
-                    categoria = Int32.Parse(data.GetValue(4).ToString());
-                    string nombreCateg = data.GetValue(5).ToString();
-
-                    categ = new Categoria(categoria, nombreCateg);
-
-                    producto = new Producto(id, nombre, precio, cantidad, categ);
-                    productos.Add(producto);
-                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                /*
+				//en caso de no haber datos se genera un admin y se guarda en el archivo
+				Console.WriteLine("archivo no encontrado, se inicializa un objeto vacio para productos");
+				usuarios = new List<Usuario>();
+				usuarios.Add(new Usuario(0, 0000, "admin", "admin", "admin@gmail.com", "admin", "admin", "000"));
+				usuarios.Add(new Usuario(1, 0001, "cliente", "cliente", "cliente@gmail.com", "cliente", "cliente", "001"));
+				saveAll(usuarios);
+				*/
                 productos = null;
             }
-
             finally
             {
                 conexion.Close();

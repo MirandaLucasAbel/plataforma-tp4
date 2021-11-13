@@ -10,7 +10,7 @@ namespace Clase7
         public int numero { get; set; }
         public int tramite { get; set; }
 
-        public Usuario_ejemplo user { get; set; }
+       // public Usuario_ejemplo user { get; set; }
         public int num_usr { get; set; }
         public DNI() { }
     }

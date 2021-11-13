@@ -5,6 +5,7 @@ using tp1;
 
 namespace Slc_Mercado
 {
+
     public class Compra
     {
         public int id { get; set; }
@@ -12,6 +13,7 @@ namespace Slc_Mercado
         public Dictionary <Producto,int> productos;
         public double total { get; set; }
 
+        public Compra() { }
         public Compra(int id,Usuario comprador, Dictionary<Producto,int> productosCarrito) {
             this.comprador = comprador;
             this.productos = productosCarrito;

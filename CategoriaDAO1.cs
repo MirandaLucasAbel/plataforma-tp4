@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using tp1;
 using config;
 using System.Data.SqlClient;
+using Clase7;
+using Microsoft.EntityFrameworkCore;
 
 namespace dao
 {
     class CategoriaDAO1 : DataBaseConfig
     {
         private string tabla = "categorias";
+        private MyContext contexto;
 
         public CategoriaDAO1()
         {
@@ -20,37 +23,36 @@ namespace dao
 
         public List<Categoria> getAll()
         {
-            List<Categoria> categorias = new List<Categoria>();
+            List<Categoria> productos = new List<Categoria>();
+
 
             try
             {
-                string sql = $"use [ecommerce-plataforma]; select id, nombre from { tabla}; ";
-                SqlDataReader data = ejecutarQuery(sql);
+                contexto = new MyContext();
+                contexto.categorias.Load();
 
-                Categoria categoria = null;
-                int id;
-                string nombre;
+                foreach (Categoria C in contexto.categorias)
+                    productos.Add(C);
 
-                while (data.Read())
-                {
-                    id = Int32.Parse(data.GetValue(0).ToString());
-                    nombre = (data.GetValue(1).ToString());
-
-                    categoria = new Categoria(id, nombre);
-                    categorias.Add(categoria);
-                }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Archivo no encontrado");
+                /*
+				//en caso de no haber datos se genera un admin y se guarda en el archivo
+				Console.WriteLine("archivo no encontrado, se inicializa un objeto vacio para productos");
+				usuarios = new List<Usuario>();
+				usuarios.Add(new Usuario(0, 0000, "admin", "admin", "admin@gmail.com", "admin", "admin", "000"));
+				usuarios.Add(new Usuario(1, 0001, "cliente", "cliente", "cliente@gmail.com", "cliente", "cliente", "001"));
+				saveAll(usuarios);
+				*/
+                productos = null;
             }
-
             finally
             {
                 conexion.Close();
             }
 
-            return categorias;
+            return productos;
         }
 
         public bool insert(string categoria)

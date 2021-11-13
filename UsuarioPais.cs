@@ -10,7 +10,7 @@ namespace Clase7
         public int id { get; set; }
         public Pais pais { get; set; }
         public int num_usr { get; set; }
-        public Usuario_ejemplo user { get; set; }
+     //   public Usuario_ejemplo user { get; set; }
         public UsuarioPais() { }
     }
 }

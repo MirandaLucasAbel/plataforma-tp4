@@ -10,6 +10,7 @@ namespace Clase7
 {
     class UsuarioManager
     {
+        /*
         private MyContext contexto;
         public UsuarioManager()
         {
@@ -201,5 +202,7 @@ namespace Clase7
         {
             contexto.Dispose();
         }
+          */
     }
+
 }

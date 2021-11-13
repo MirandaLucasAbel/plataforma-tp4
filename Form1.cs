@@ -12,6 +12,7 @@ namespace Clase7
 {
     public partial class Form1 : Form
     {
+        /*
         private UsuarioManager usuarios;
         public Form1()
         {
@@ -138,5 +139,6 @@ namespace Clase7
             else
                 MessageBox.Show("Debe seleccionar un usuario y completar los campos");
         }
+        */
     }
 }

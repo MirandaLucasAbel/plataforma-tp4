@@ -18,7 +18,7 @@ namespace Clase7
             {
                 components.Dispose();
             }
-            usuarios.cerrar();
+           // usuarios.cerrar();
             base.Dispose(disposing);
         }
 
@@ -88,7 +88,7 @@ namespace Clase7
             this.dataGridView1.RowTemplate.Height = 29;
             this.dataGridView1.Size = new System.Drawing.Size(776, 294);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+           // this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // Column1
             // 
@@ -146,7 +146,7 @@ namespace Clase7
             this.button1.TabIndex = 1;
             this.button1.Text = "Mostrar Usuarios";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+           // this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -240,7 +240,7 @@ namespace Clase7
             this.button2.TabIndex = 12;
             this.button2.Text = "Agregar Usuario";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+          //  this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
@@ -250,7 +250,7 @@ namespace Clase7
             this.button3.TabIndex = 13;
             this.button3.Text = "Modificar Usuario";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+           // this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -260,7 +260,7 @@ namespace Clase7
             this.button4.TabIndex = 14;
             this.button4.Text = "Eliminar Usuario";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+           // this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -270,7 +270,7 @@ namespace Clase7
             this.button5.TabIndex = 15;
             this.button5.Text = "Solo ADMINS";
             this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+          //  this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // dataGridView2
             // 
@@ -341,7 +341,7 @@ namespace Clase7
             this.button6.TabIndex = 20;
             this.button6.Text = "Agregar Pais";
             this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+           // this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button7
             // 
@@ -351,7 +351,7 @@ namespace Clase7
             this.button7.TabIndex = 21;
             this.button7.Text = "Agregar Domicilio";
             this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+          //  this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label5
             // 

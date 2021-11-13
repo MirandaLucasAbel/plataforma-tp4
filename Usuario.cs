@@ -1,5 +1,5 @@
 ﻿using System;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace tp1
 {
@@ -13,7 +13,8 @@ namespace tp1
         public string mail { get; set; }
         public string password { get; set; }
         public string tipo { get; set; }
-        public string cuilCuit { get; set; }
+        public string cuil { get; set; }
+        [NotMapped]
         public Carro MiCarro { get; set; }
 
 
@@ -26,7 +27,7 @@ namespace tp1
             this.mail = mail;
             this.password = password;
             this.tipo = tipo;
-            this.cuilCuit = cuilCuit;
+            this.cuil = cuilCuit;
             this.MiCarro = new Carro();
         }
 
@@ -36,7 +37,7 @@ namespace tp1
 
         public string toString()
         {
-            return "Usuario: " + this.id + " - Dni " + this.dni + " - Nombre " + this.nombre + " - Apellido " + this.apellido + " - Mail " + this.mail + " - Cuil/Cuit:" + this.cuilCuit + " - Tipo de Usuario:" + this.tipo; // " - Carro :" + MiCarro.toString();
+            return "Usuario: " + this.id + " - Dni " + this.dni + " - Nombre " + this.nombre + " - Apellido " + this.apellido + " - Mail " + this.mail + " - Cuil/Cuit:" + this.cuil + " - Tipo de Usuario:" + this.tipo; // " - Carro :" + MiCarro.toString();
         }
     }
 }

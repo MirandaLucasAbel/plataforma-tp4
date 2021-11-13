@@ -7,13 +7,18 @@ using tp1;
 using config;
 using System;
 using System.Data.SqlClient;
+using Clase7; //revisar!!! revisar revisar
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace dao
 {
 	public class UsuarioDAO1 : DataBaseConfig
 	{
 	
-		private string tabla = "usuarios";
+
+		private MyContext contexto;
 
 		public UsuarioDAO1()
 		{
@@ -21,94 +26,47 @@ namespace dao
 
 		public  Usuario getUserById(int userId)
         {
-			string sql = $"use [ecommerce-plataforma]; select id,nombre,apellido,dni,mail,password,tipo,cuil from {tabla} where id = {userId.ToString()};";
-			SqlDataReader data = ejecutarQuery(sql);
-
-			Usuario usuario = null;
-			int id;
-			string nombre;
-			string apellido;
-			int dni;
-			string mail;
-			string password;
-			string tipo;
-			string cuil;
-
-            while (data.Read())
-            {
-				/*Console.WriteLine(data.GetValue(0));
-				Console.WriteLine(data.GetValue(1));
-				Console.WriteLine(data.GetValue(2));
-				Console.WriteLine(data.GetValue(3));
-				Console.WriteLine(data.GetValue(4));
-				Console.WriteLine(data.GetValue(5));
-				Console.WriteLine(data.GetValue(6));
-				Console.WriteLine(data.GetValue(7));
-		
-				Console.WriteLine("------------");
-				*/
-
-				id = Int32.Parse(data.GetValue(0).ToString());
-				nombre = (data.GetValue(1).ToString());
-				apellido = (data.GetValue(2).ToString());
-				dni = Int32.Parse(data.GetValue(3).ToString());
-				mail = (data.GetValue(4).ToString());
-				password  = (data.GetValue(5).ToString());
-				tipo = data.GetValue(6).ToString();
-				cuil = data.GetValue(7).ToString();
+			Usuario usuario = new Usuario();
+			try
+			{
 
 
-				usuario = new Usuario(id, dni, nombre, apellido, mail, password, tipo, cuil);
+				contexto = new MyContext();
+				contexto.usuarios.Load();
+
+				usuario = contexto.usuarios.Where(U => (U.id == userId)).FirstOrDefault();
+
 			}
-			conexion.Close();
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+				usuario = null;
+			}
+			finally
+			{
+				conexion.Close();
+			}
+
+
 			return usuario;
 
 		}
 
+
+
 		public Usuario getUsuarioByDni(int dni,string password)
         {
+			
+			
 			Usuario usuario = new Usuario();
 			try
             {
-				string sql = $"use [ecommerce-plataforma]; select id,nombre,apellido,dni,mail,password,tipo,cuil from {tabla} where dni = {dni.ToString()} and password = '{password}';";
-				SqlDataReader data = ejecutarQuery(sql);
-
 				
-				int id;
-				string nombre;
-				string apellido;
-				//int dni;
-				string mail;
-				//string password;
-				string tipo;
-				string cuil;
+				contexto = new MyContext();
+				contexto.usuarios.Load();
 
-				while (data.Read())
-				{
-					/*Console.WriteLine(data.GetValue(0));
-					Console.WriteLine(data.GetValue(1));
-					Console.WriteLine(data.GetValue(2));
-					Console.WriteLine(data.GetValue(3));
-					Console.WriteLine(data.GetValue(4));
-					Console.WriteLine(data.GetValue(5));
-					Console.WriteLine(data.GetValue(6));
-					Console.WriteLine(data.GetValue(7));
-
-					Console.WriteLine("------------");
-					*/
-
-					id = Int32.Parse(data.GetValue(0).ToString());
-					nombre = (data.GetValue(1).ToString());
-					apellido = (data.GetValue(2).ToString());
-					dni = Int32.Parse(data.GetValue(3).ToString());
-					mail = (data.GetValue(4).ToString());
-					password = (data.GetValue(5).ToString());
-					tipo = data.GetValue(6).ToString();
-					cuil = data.GetValue(7).ToString();
-
-
-					usuario = new Usuario(id, dni, nombre, apellido, mail, password, tipo, cuil);
-				}
+				usuario = contexto.usuarios.Where(U =>( U.dni==dni && U.password==password)).FirstOrDefault();
+				
 			}
 			catch(Exception ex)
             {
@@ -130,46 +88,12 @@ namespace dao
 			List<Usuario> usuarios = new List<Usuario>();
 			try
 			{
-				string sql = $"use [ecommerce-plataforma]; select id,nombre,apellido,dni,mail,password,tipo,cuil from {tabla};";
-				SqlDataReader data = ejecutarQuery(sql);
+				contexto = new MyContext();
+				contexto.usuarios.Load();
 
-				Usuario usuario = null;
-				int id;
-				string nombre;
-				string apellido;
-				int dni;
-				string mail;
-				string password;
-				string tipo;
-				string cuil;
+				foreach (Usuario U in contexto.usuarios)
+					usuarios.Add(U);
 
-				while (data.Read())
-				{
-					/*Console.WriteLine(data.GetValue(0));
-					Console.WriteLine(data.GetValue(1));
-					Console.WriteLine(data.GetValue(2));
-					Console.WriteLine(data.GetValue(3));
-					Console.WriteLine(data.GetValue(4));
-					Console.WriteLine(data.GetValue(5));
-					Console.WriteLine(data.GetValue(6));
-					Console.WriteLine(data.GetValue(7));
-
-					Console.WriteLine("------------");
-					*/
-
-					id = Int32.Parse(data.GetValue(0).ToString());
-					nombre = (data.GetValue(1).ToString());
-					apellido = (data.GetValue(2).ToString());
-					dni = Int32.Parse(data.GetValue(3).ToString());
-					mail = (data.GetValue(4).ToString());
-					password = (data.GetValue(5).ToString());
-					tipo = data.GetValue(6).ToString();
-					cuil = data.GetValue(7).ToString();
-
-
-					usuario = new Usuario(id, dni, nombre, apellido, mail, password, tipo, cuil);
-					usuarios.Add(usuario);
-				}
 			}
 			catch (Exception ex)
 			{
@@ -193,11 +117,14 @@ namespace dao
 
 		public bool insert(string nombre,string apellido, string password, int dni,string mail,string tipo,string cuilCuit)
         {
-			bool flag = true;
+			
 			try
 			{
-				string sql = $"use [ecommerce-plataforma]; insert into {tabla}(nombre,apellido,dni,mail,password,tipo,cuil) values('{nombre}','{apellido}','{dni}','{mail}','{password}','{tipo}','{cuilCuit}');";
-				SqlDataReader data = ejecutarQuery(sql);
+
+				Usuario nuevo = new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido=apellido, tipo = tipo,cuil = cuilCuit };
+				contexto.usuarios.Add(nuevo);
+				contexto.SaveChanges();
+				return true;
 
 
 
@@ -205,70 +132,78 @@ namespace dao
 			catch (Exception ex)
 			{
 				Console.WriteLine(ex.Message);
-				flag = false;
+				return false;
 			}
-			finally
-			{
-				conexion.Close();
-			}
-			return flag;
+
 				
         }
 
 		public bool update(int id, int dni, string nombre, string apellido, string mail, string password, string cuit_Cuil, string tipo)
 		{
-			bool flag = true;
-			try
-			{
-				string sql = $"use [ecommerce-plataforma]; update usuarios set nombre = '{nombre}', apellido = '{apellido}', dni = {dni},mail = '{mail}',password = '{password}', tipo='{tipo}',cuil = '{cuit_Cuil}' where id = {id};";
-				SqlDataReader data = ejecutarQuery(sql);
-
-
-				ejecutarQuery(sql);
-
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-				flag = false;
-			}
-			finally
-			{
-				conexion.Close();
-			}
-			return flag;
+			bool salida = false;
+			foreach (Usuario u in contexto.usuarios)
+				if (u.id == id)
+				{
+					u.nombre = nombre;
+					u.apellido = apellido;
+					u.dni = dni;
+					u.mail = mail;
+					u.password = password;
+					u.cuil = cuit_Cuil;
+					u.tipo = tipo;
+					contexto.usuarios.Update(u);
+					salida = true;
+				}
+			if (salida)
+				contexto.SaveChanges();
+			return salida;
 
 		}
 
 		public bool delete(int id)
 		{
-			bool flag = true;
 			try
 			{
-				string sql = $"use [ecommerce-plataforma]; delete from {tabla} where id = {id};";
-				SqlDataReader data = ejecutarQuery(sql);
-
-				ejecutarQuery(sql);
-
+				bool salida = false;
+				foreach (Usuario u in contexto.usuarios)
+					if (u.id == id)
+					{
+						contexto.usuarios.Remove(u);
+						salida = true;
+					}
+				if (salida)
+					contexto.SaveChanges();
+				return salida;
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
-				Console.WriteLine(ex.Message);
-				flag = false;
+				return false;
 			}
-			finally
-			{
-				conexion.Close();
-			}
-			return flag;
 
 		}
 
-		public  bool saveAll(List<Usuario> usuario)
-		{
 
-			//revisar
-			return false;
+
+		public void getUserByTest()
+		{
+			//creo un contexto
+			contexto = new MyContext();
+			//cargo los usuarios
+			//contexto.usuarios;
+			contexto.usuarios.Load();
+			//seteo relación de paises
+			Console.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+			contexto.usuarios.Where(u => u.id == 1).FirstOrDefault();
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(contexto.usuarios.Where(U => U.id == 1).FirstOrDefault());
+			Console.WriteLine(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;");
+
+			MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}
 
 	}

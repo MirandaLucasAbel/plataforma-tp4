@@ -46,6 +46,11 @@ namespace tp1
 
         }
 
+        internal void TEST()
+        {
+            this.usuarioDao.getUserByTest();
+        }
+
         public List<Producto> getProductos()
         {
             return this.productoDao.getAll();
@@ -189,7 +194,7 @@ namespace tp1
                 {
                     if (cuit_Cuil.Length == 11)
                     {
-                        us.cuilCuit = cuit_Cuil;
+                        us.cuil = cuit_Cuil;
                     }
                     else
                     {
@@ -301,7 +306,7 @@ namespace tp1
             List<Producto> aux = new List<Producto>();
             foreach (Producto prod in productos)
             {
-                if(prod.cat.nombre == nombreCateg)
+                if(prod.categoria.nombre == nombreCateg)
                 {
                     aux.Add(prod);
                 }
@@ -452,7 +457,7 @@ namespace tp1
 
             public List<Producto> mostrarTodosProductosPorCategoria() //MUESTRA TODAS LAS CATEGORIAS DEL MERCADO Y PARA CADA UNA DE ELLAS, LOS PRODUCTOS DENTRO DE LA MISMA.
             {
-            return productos.OrderBy(pr => pr.cat.id).ToList();
+            return productos.OrderBy(pr => pr.categoria.id).ToList();
             }
 
 

@@ -8,7 +8,7 @@ namespace Clase7
     {
         public int id { get; set; }
         public string nombre { get; set; }
-        public ICollection<Usuario_ejemplo> users { get; set; }
+      //  public ICollection<Usuario_ejemplo> users { get; set; }
         public List<UsuarioPais> UserPais { get; set; }
         public Pais() { }
 
