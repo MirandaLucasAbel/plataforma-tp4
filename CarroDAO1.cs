@@ -59,7 +59,7 @@ namespace Slc_Mercado
             return carro;
         }
 
-        public bool insert(int id_usuario, int id_producto, int cantidad)
+        public bool insert(int id_usuario, Producto id_producto, int cantidad)
         {
             bool flag = true;
 
@@ -82,7 +82,7 @@ namespace Slc_Mercado
             return flag;
         }
 
-        public bool update(int id_usuario, int id_producto, int cantidad)
+        public bool update(int id_usuario, Producto id_producto, int cantidad)
         {
   
             bool flag = true;

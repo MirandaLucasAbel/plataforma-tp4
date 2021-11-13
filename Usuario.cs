@@ -21,8 +21,8 @@ namespace tp1
        
 
         public int id;
-        public List<Compra> compras;
-        
+        public List<Compra> compras { get; set; }
+
 
         public Usuario(int id, int dni, string nombre, string apellido, string mail, string password, string tipo, string cuilCuit)
         {

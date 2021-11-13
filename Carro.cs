@@ -11,7 +11,7 @@ namespace tp1
     public class Carro
     {
         public int carro_id { get; set; }
-        public Dictionary<int, int> productos { get; set; }
+        public Dictionary<Producto, int> productos  { get; set; }
 
         public List<Producto> productoss { get; set; }
         public int usuario_id { get; set; }
@@ -19,14 +19,14 @@ namespace tp1
 
         public Carro() {
             this.carro_id = carro_id;
-            this.productos = new Dictionary<int, int>();
+            this.productos = new Dictionary<Producto, int>();
         }
         public Carro(int id) {
             this.carro_id = id;
-            this.productos = new Dictionary<int, int>();
+            this.productos = new Dictionary<Producto, int>();
         }
 
-        public bool agregarProducto(int id_usuario,int id_producto, int cantidad) {
+        public bool agregarProducto(int id_usuario, Producto id_producto, int cantidad) {
             CarroDAO1 dao = new CarroDAO1();
             if ( this.productos.ContainsKey(id_producto))
             {
@@ -45,17 +45,17 @@ namespace tp1
         internal double calcularTotal()
         {
             double total = 0;
-            foreach (KeyValuePair<int, int> prod in productos)
+            foreach (KeyValuePair<Producto, int> prod in productos)
             {
-                ProductoDAO1 dao = new ProductoDAO1();
-                Producto prodAux = dao.get(prod.Key);
+                
+                Producto prodAux = prod.Key;
                 total += (prodAux.precio * prod.Value);
             }
 
             return total;
         }
 
-        public bool sacarProductos(int id_producto, int cantidad) {
+        public bool sacarProductos(Producto id_producto, int cantidad) {
             if (productos.ContainsKey(id_producto))
             {
                 if (productos[id_producto] <= cantidad)
@@ -91,7 +91,7 @@ namespace tp1
         internal int cantidadArticulos()
         {
             int cant = 0;
-            foreach (KeyValuePair<int, int> prod in productos)
+            foreach (KeyValuePair<Producto, int> prod in productos)
             {
                 cant += prod.Value;
             }
@@ -103,10 +103,9 @@ namespace tp1
         {
             //return "Carro: " + this.id + " - " + this.productos.ToString();
             string aux = "";
-            foreach (KeyValuePair<int, int> prod in productos)
+            foreach (KeyValuePair<Producto, int> prod in productos)
             {
-                ProductoDAO1 dao = new ProductoDAO1();
-                Producto prodAux = dao.get(prod.Key);
+                Producto prodAux = prod.Key;
                 aux += prodAux.nombre + " " + prod.Value.ToString() + "u * $" + prodAux.precio + "\n";
             }
             aux += "Total a pagar: ";

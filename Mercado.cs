@@ -321,8 +321,8 @@ namespace tp1
              bool flag = true;
             try
             {
-                if (getProductoById(id_Producto).cantidad >= cantidad) { 
-                usuario.MiCarro.agregarProducto(id_Usuario, id_Producto, cantidad);
+                if (productoDao.get(id_Producto).cantidad >= cantidad) { 
+                usuario.MiCarro.agregarProducto(id_Usuario, productoDao.get(id_Producto), cantidad);
                 } else
                 {
                     flag = false;
