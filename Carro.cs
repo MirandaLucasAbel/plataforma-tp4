@@ -10,15 +10,16 @@ namespace tp1
     
     public class Carro
     {
-        public int id { get; set; }
+        public int carro_id { get; set; }
+        public int usuario_id { get; set; }
         public Dictionary<int, int> productos { get; set; }
 
         public Carro() {
-            this.id = id;
+            this.carro_id = carro_id;
             this.productos = new Dictionary<int, int>();
         }
         public Carro(int id) {
-            this.id = id;
+            this.carro_id = id;
             this.productos = new Dictionary<int, int>();
         }
 
