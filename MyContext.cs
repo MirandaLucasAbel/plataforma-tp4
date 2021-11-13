@@ -4,6 +4,8 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Slc_Mercado;
 using tp1;
+using dao;
+using config;
 
 namespace Clase7
 {
@@ -73,6 +75,17 @@ namespace Clase7
             modelBuilder.Entity<Compra>()
                 .HasOne(Co => Co.comprador)
                 .WithMany(U => U.compras);
+
+            modelBuilder.Ignore<Mercado>();
+            modelBuilder.Ignore<CompraDAO1>();
+            modelBuilder.Ignore<CarroDAO1>();
+            modelBuilder.Ignore<CategoriaDAO1>();
+            modelBuilder.Ignore<ProductoDAO1>();
+            modelBuilder.Ignore<UsuarioDAO1>();
+            modelBuilder.Ignore<DataBaseConfig>();
+            modelBuilder.Ignore<Pais>();
+            modelBuilder.Ignore<UsuarioPais>();
+
 
         }
     }
