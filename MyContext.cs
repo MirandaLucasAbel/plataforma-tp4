@@ -48,7 +48,11 @@ namespace Clase7
                 .HasOne(P => P.categoria)
                 .WithMany(C => C.productos)
                 .HasForeignKey(C => C.producto_id);
-            
+
+            modelBuilder.Entity<Producto>()
+                .HasMany(P => P.carritos)
+                .WithMany(Ca => Ca.productoss);
+
             modelBuilder.Entity<Usuario>()
                 .ToTable("usuarios")
                 .HasKey(U => U.usuario_id);
@@ -57,12 +61,18 @@ namespace Clase7
                 .HasOne(U => U.MiCarro)
                 .WithOne(Ca => Ca.usuario);
 
+
             modelBuilder.Entity<Carro>()
                 .ToTable("Carros")
                 .HasKey(Ca => Ca.carro_id);
+
             modelBuilder.Entity<Compra>()
                .ToTable("compras")
                .HasKey(Co => Co.id);
+
+            modelBuilder.Entity<Compra>()
+                .HasOne(Co => Co.comprador)
+                .WithMany(U => U.compras);
 
         }
     }

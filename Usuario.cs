@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using Slc_Mercado;
+using System.Collections.Generic;
 namespace tp1
 {
 
@@ -17,6 +18,11 @@ namespace tp1
         [NotMapped]
         public Carro MiCarro { get; set; }
 
+       
+
+        public int id;
+        public List<Compra> compras;
+        
 
         public Usuario(int id, int dni, string nombre, string apellido, string mail, string password, string tipo, string cuilCuit)
         {

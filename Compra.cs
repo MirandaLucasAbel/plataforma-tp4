@@ -10,7 +10,7 @@ namespace Slc_Mercado
     {
         public int id { get; set; }
         public Usuario comprador { get; set; }
-        public Dictionary <Producto,int> productos;
+        public Dictionary<Producto, int> productos;
         public double total { get; set; }
 
         public Compra() { }

@@ -11,9 +11,11 @@ namespace tp1
     public class Carro
     {
         public int carro_id { get; set; }
+        public Dictionary<int, int> productos { get; set; }
+
+        public List<Producto> productoss { get; set; }
         public int usuario_id { get; set; }
         public Usuario usuario { get; set; }
-        public Dictionary<int, int> productos { get; set; }
 
         public Carro() {
             this.carro_id = carro_id;
