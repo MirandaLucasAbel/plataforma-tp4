@@ -44,12 +44,12 @@ namespace Clase7
 
             modelBuilder.Entity<Producto>()
                 .ToTable("producto")
-                .HasKey(P => P.producto_id);
+                .HasKey(P => P.id);
 
             modelBuilder.Entity<Producto>()
                 .HasOne(P => P.categoria)
                 .WithMany(C => C.productos)
-                .HasForeignKey(C => C.producto_id);
+                .HasForeignKey(C => C.id);
 
             modelBuilder.Entity<Producto>()
                 .HasMany(P => P.carritos)
@@ -59,27 +59,48 @@ namespace Clase7
                 .ToTable("usuarios")
                 .HasKey(U => U.id);
 
+            //tabla intermedia usuario_carro
             modelBuilder.Entity<Usuario_Carro>()
-                .ToTable("usuario_carro");
-               // .HasKey(pk => new { pk.id_usuario, pk.id });
+                .ToTable("usuario_carro")
+                .HasKey(pk => new { pk.id_usuario, pk.id });
 
-            //Defino la relación con usuario
+            
             modelBuilder.Entity<Usuario_Carro>()
-            .HasOne(UC => UC.usuario)
-            .WithMany(U => U.usuario_carro)
-            .HasForeignKey(up => up.id_usuario);
+                .HasOne(UC => UC.usuario)
+                .WithMany(U => U.usuario_carro)
+                .HasForeignKey(up => up.id_usuario);
 
 
             modelBuilder.Entity<Usuario_Carro>()
-            .HasOne(UC => UC.carro)
-            .WithMany(C => C.usuario_carro)
-            .HasForeignKey(up => up.id);
+                .HasOne(UC => UC.carro)
+                .WithMany(C => C.usuario_carro)
+                .HasForeignKey(up => up.id);
+
+            //tabla intermedia usuario_compra
+            modelBuilder.Entity<Usuario_Compra>()
+                .ToTable("usuario_compra")
+                .HasKey(pk => new { pk.id_usuario, pk.id });
 
 
+            modelBuilder.Entity<Usuario_Compra>()
+                .HasOne(UC => UC.usuario)
+                .WithMany(U => U.usuario_compra)
+                .HasForeignKey(up => up.id_usuario);
+
+
+            modelBuilder.Entity<Usuario_Compra>()
+                .HasOne(UC => UC.compra)
+                .WithMany(C => C.usuario_compra)
+                .HasForeignKey(up => up.id);
+
+
+            //tabla carro
             modelBuilder.Entity<Carro>()
-                .ToTable("Carros")
+                .ToTable("carro")
                 .HasKey(Ca => Ca.id);
 
+
+            //tabla compra
             modelBuilder.Entity<Compra>()
                .ToTable("compras")
                .HasKey(Co => Co.id);

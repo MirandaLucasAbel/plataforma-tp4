@@ -130,7 +130,7 @@ namespace Slc_Mercado
                 columnas.Add("Categoria");
                 foreach (Producto prod in productos)
                 {
-                    datos.Add(new List<string>(new string[] { prod.producto_id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString(), prod.categoria.categoria_id.ToString() }));
+                    datos.Add(new List<string>(new string[] { prod.id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString(), prod.categoria.categoria_id.ToString() }));
                 }
 
             }
@@ -175,7 +175,7 @@ namespace Slc_Mercado
                     double precioProd = 0;
                     int cantProd = 0;
                     int idCateg = 0;
-                    int id;
+                    //int id;
                    // bool idOK = int.TryParse(tabla.Rows[index].Cells[0].Value.ToString(), out id);
                     bool precioOK = double.TryParse(tabla.Rows[index].Cells[2].Value.ToString(), out precioProd);
                     bool cantOK = int.TryParse(tabla.Rows[index].Cells[3].Value.ToString(), out cantProd);
@@ -222,7 +222,7 @@ namespace Slc_Mercado
             }
             catch(Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
 
             refreshData(datos,columnas);

@@ -10,13 +10,16 @@ namespace Slc_Mercado
     {
         public int id { get; set; }
         public Usuario comprador { get; set; }
-        public Dictionary<Producto, int> productos;
+        //public Dictionary<Producto, int> productos;
         public double total { get; set; }
+
+        public List<Usuario_Compra> usuario_compra { get; set; }
+
 
         public Compra() { }
         public Compra(int id,Usuario comprador, Dictionary<Producto,int> productosCarrito) {
             this.comprador = comprador;
-            this.productos = productosCarrito;
+           // this.productos = productosCarrito;
             foreach (KeyValuePair<Producto, int> kvp in productosCarrito)
             {
                 this.total += kvp.Key.precio * kvp.Value; 
@@ -28,17 +31,12 @@ namespace Slc_Mercado
 
         public string toString()
         {
-            return "ID: "+ this.id + "- Usuario: " + this.comprador.ToString() + "- Productos: " + this.productos.ToString() + "- Total: " + this.total;
+            return "ID: "+ this.id + "- Usuario: " + this.comprador.ToString() + "- Productos: " + "PRODUCTOS" + "- Total: " + this.total;
         }
 
         internal double calcularCompra()
         {
-            double suma = 0;
-            foreach (KeyValuePair<Producto, int> kvp in productos)
-            {
-                suma += kvp.Key.precio * kvp.Value; //revisar getter
-
-            }
+            double suma = 1;
 
             return suma;
         }
@@ -47,11 +45,11 @@ namespace Slc_Mercado
         {
             string aux = "";
 
-            foreach (KeyValuePair<Producto, int> kvp in productos)
+           /* foreach (KeyValuePair<Producto, int> kvp in productos)
             {
                 aux  += "id: "+kvp.Key.producto_id + " nombre: "+kvp.Key.nombre + " precio: "+kvp.Key.precio + " cantidad:"+ kvp.Value; 
 
-            }
+            }*/
             return aux;
         }
 

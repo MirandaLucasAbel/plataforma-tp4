@@ -31,7 +31,7 @@ namespace dao
                 contexto = new MyContext();
                 contexto.categorias.Load();
 
-                producto = contexto.producto.Where(P => (P.producto_id == id)).FirstOrDefault();
+                producto = contexto.producto.Where(P => (P.id == id)).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -83,7 +83,11 @@ namespace dao
             try
             {
                 //conseguir la categoria para insertar
-                Producto producto = new Producto(nombre,precio,cantidad,null);
+                contexto.categorias.Load();
+
+                Categoria categoria = contexto.categorias.Where(C => (C.categoria_id == id_categoria)).FirstOrDefault();
+
+                Producto producto = new Producto(nombre,precio,cantidad,categoria);
                 contexto.producto.Add(producto);
                 contexto.SaveChanges();
                 return true;
@@ -99,7 +103,7 @@ namespace dao
         {
             bool salida = false;
             foreach (Producto p in contexto.producto)
-                if (p.producto_id == id)
+                if (p.id == id)
                 {
                     p.nombre = nombreProd;
                     p.precio = precioProd;
@@ -133,7 +137,7 @@ namespace dao
             {
                 bool salida = false;
                 foreach (Producto p in contexto.producto)
-                    if (p.producto_id == id)
+                    if (p.id == id)
                     {
                         contexto.producto.Remove(p);
                         salida = true;

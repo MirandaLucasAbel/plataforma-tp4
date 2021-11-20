@@ -66,6 +66,7 @@ namespace Slc_Mercado
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     MessageBox.Show("Ocurrio un error al intentar realizar la compra");
                 }
             }
@@ -89,7 +90,7 @@ namespace Slc_Mercado
         {
             foreach (Producto prod in productos)
             {
-                datos.Add(new List<string>(new string[] { prod.producto_id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString() }));
+                datos.Add(new List<string>(new string[] { prod.id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString() }));
             }
         }
 
@@ -113,6 +114,7 @@ namespace Slc_Mercado
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 //MessageBox.Show("Carrito vaciado con exito");
             }
             
@@ -165,6 +167,7 @@ namespace Slc_Mercado
             }
             catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 MessageBox.Show("ocurrio un error por favor intente nuevamente");
             }
             

@@ -113,8 +113,8 @@ namespace dao
 			
 			try
 			{
-
-				Usuario nuevo = new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido=apellido, tipo = tipo,cuil = cuilCuit };
+				contexto = new MyContext();
+				Usuario nuevo = new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido = apellido, tipo = tipo, cuil = cuilCuit, MiCarro = new List<Carro>(), usuario_carro = new List<Usuario_Carro>(), usuario_compra = new List<Usuario_Compra>() };
 				contexto.usuarios.Add(nuevo);
 				contexto.SaveChanges();
 				return true;
@@ -182,7 +182,7 @@ namespace dao
 			//metodo para prueba
 			contexto = new MyContext();
 			contexto.usuarios.Load();
-			MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
+			//MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}
 
 	}

@@ -35,6 +35,9 @@ namespace tp1
             this.tipo = tipo;
             this.cuil = cuilCuit;
             //this.MiCarro = new Carro(); //revisar
+            this.MiCarro = new List<Carro>();
+            this.usuario_carro = new List<Usuario_Carro>();
+            this.usuario_compra = new List<Usuario_Compra>();
         }
 
  

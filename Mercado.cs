@@ -389,7 +389,7 @@ namespace tp1
             {
 
                 int pedido = prod.Value;
-                int stock = getProductoById(prod.Key.producto_id).cantidad;
+                int stock = getProductoById(prod.Key.id).cantidad;
 
                 if ((stock < pedido))
                 {
@@ -416,7 +416,7 @@ namespace tp1
         {
             foreach(Producto prod in productos)
             {
-                if(prod.producto_id == idProd)
+                if(prod.id == idProd)
                 {
                     return prod.cantidad;
                 }
@@ -441,7 +441,7 @@ namespace tp1
   
         public List<Producto> mostrarTodosProductos()
         {
-            productos.Sort((a, b) => a.producto_id.CompareTo(b.producto_id));
+            productos.Sort((a, b) => a.id.CompareTo(b.id));
             return productos;
             /*foreach (Producto pr in producto)
             {

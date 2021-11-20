@@ -7,7 +7,7 @@ namespace tp1
 
     public class Producto
     {
-        public int producto_id { get; set; }
+        public int id { get; set; }
         public string nombre { get; set; }
         public double precio { get; set; }
         public int cantidad { get; set; }
@@ -19,7 +19,7 @@ namespace tp1
         public Producto() { }
         public Producto(int id, string nombre, double precio, int cantidad, Categoria categoria){
 
-            this.producto_id = id;
+            this.id = id;
             this.nombre = nombre;
             this.precio = precio;
             this.cantidad = cantidad;
@@ -39,7 +39,7 @@ namespace tp1
 
         public  string toString()
         {
-            return "Producto: id " + this.producto_id + " - nombre " + this.nombre + " - precio " + this.precio + " - cantidad " + this.cantidad + " - " + this.categoria.toString();
+            return "Producto: id " + this.id + " - nombre " + this.nombre + " - precio " + this.precio + " - cantidad " + this.cantidad + " - " + this.categoria.toString();
         }
     }
 }

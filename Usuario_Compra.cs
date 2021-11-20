@@ -9,7 +9,13 @@ namespace tp1
     {
         public int id { get; set; }
         public Usuario usuario {get;set;} 
-        public IEnumerable<Compra> usuario_compra { get; set; }
+
+        public int id_usuario { get; set; }
+        
+
+        public Compra compra { get; set; }
+
+        
 
         public Usuario_Compra() { }
     }

@@ -41,6 +41,7 @@ namespace Slc_Mercado
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 Console.WriteLine("Archivo no encontrado");
             }
 

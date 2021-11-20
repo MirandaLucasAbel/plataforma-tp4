@@ -18,7 +18,7 @@ namespace tp1
         public Usuario usuario { get; set; }
         public List<Usuario_Carro> usuario_carro { get; set; }
 
-        public Producto producto { get; set; }
+       
 
         public Carro() {
             this.id = id;
