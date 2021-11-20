@@ -99,6 +99,8 @@ namespace Clase7
             modelBuilder.Ignore<UsuarioPais>();
 
 
+
+
         }
     }
 }
