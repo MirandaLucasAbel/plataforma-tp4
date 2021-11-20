@@ -49,6 +49,8 @@ namespace Clase7
                 .WithMany(C => C.productos)
                 .HasForeignKey(C => C.id);
 
+
+
         }
     }
 }
