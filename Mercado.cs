@@ -78,12 +78,14 @@ namespace tp1
 
         internal string mostrarCarro()
         {
-           return  this.usuario.MiCarro.toString(); 
+            //return  this.usuario.MiCarro.toString(); 
+            return "";
         }
 
         internal int cantidadArticulos()
         {
-            return this.usuario.MiCarro.cantidadArticulos();
+            //return this.usuario.MiCarro.cantidadArticulos();
+            return 0;
         }
 
         public bool agregarProducto (string nombre, double precio, int cantidad, int id_Categoria)
@@ -112,7 +114,7 @@ namespace tp1
 
         internal double calcularCompra(int idUsuario)
         {
-            double total = this.usuario.MiCarro.calcularTotal();
+            double total = 0; // this.usuario.MiCarro.calcularTotal();
         
             return total;
          }
@@ -190,7 +192,7 @@ namespace tp1
             int contadorErrores = 0;
             foreach (Usuario us in usuarios)
             {
-                if (us.usuario_id == id)
+                if (us.id == id)
                 {
                     if (cuit_Cuil.Length == 11)
                     {
@@ -322,7 +324,7 @@ namespace tp1
             try
             {
                 if (productoDao.get(id_Producto).cantidad >= cantidad) { 
-                usuario.MiCarro.agregarProducto(id_Usuario, productoDao.get(id_Producto), cantidad);
+               // usuario.MiCarro.agregarProducto(id_Usuario, productoDao.get(id_Producto), cantidad);
                 } else
                 {
                     flag = false;
@@ -365,7 +367,7 @@ namespace tp1
             return aux;
         }
         public bool vaciarCarro (int id_Usuario){
-            this.usuario.MiCarro = new Carro();
+          // this.usuario.MiCarro = new Carro();
             carroDao = new CarroDAO1();
             bool flag = carroDao.delete(id_Usuario);
             return flag;
@@ -375,7 +377,7 @@ namespace tp1
             public bool comprar(int id_Usuario){
 
 
-            bool flag = compradao.insert(id_Usuario, this.usuario.MiCarro);
+            bool flag = false; // compradao.insert(id_Usuario, this.usuario.MiCarro);
 
                 return flag;
             }

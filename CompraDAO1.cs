@@ -6,7 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using tp1;
 using config;
-using Slc_Mercado;
+
 using System.Data.SqlClient;
 
 public class CompraDAO1 : DataBaseConfig
@@ -95,16 +95,7 @@ public class CompraDAO1 : DataBaseConfig
 		double total;
         try
         {
-            foreach (KeyValuePair<Producto, int> kvp in carro.productos)
-            {
-                id_producto = kvp.Key.producto_id;
-                cantidad = kvp.Value;
-                total = carro.calcularTotal();
-                string sql = $"use [ecommerce-plataforma]; insert into {tabla}(id_usuario,id_producto,cantidad,total) values({id_usuario},{id_producto},{cantidad},{total});";
-                SqlDataReader data = ejecutarQuery(sql);
-                conexion.Close();
-
-            }
+            
            
 
         }

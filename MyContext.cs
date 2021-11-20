@@ -57,25 +57,37 @@ namespace Clase7
 
             modelBuilder.Entity<Usuario>()
                 .ToTable("usuarios")
-                .HasKey(U => U.usuario_id);
+                .HasKey(U => U.id);
 
-            modelBuilder.Entity<Usuario>()
-                .HasOne(U => U.MiCarro)
-                .WithOne(Ca => Ca.usuario);
+            modelBuilder.Entity<Usuario_Carro>()
+                .ToTable("usuario_carro");
+               // .HasKey(pk => new { pk.id_usuario, pk.id });
+
+            //Defino la relación con usuario
+            modelBuilder.Entity<Usuario_Carro>()
+            .HasOne(UC => UC.usuario)
+            .WithMany(U => U.usuario_carro)
+            .HasForeignKey(up => up.id_usuario);
+
+
+            modelBuilder.Entity<Usuario_Carro>()
+            .HasOne(UC => UC.carro)
+            .WithMany(C => C.usuario_carro)
+            .HasForeignKey(up => up.id);
 
 
             modelBuilder.Entity<Carro>()
                 .ToTable("Carros")
-                .HasKey(Ca => Ca.carro_id);
+                .HasKey(Ca => Ca.id);
 
             modelBuilder.Entity<Compra>()
                .ToTable("compras")
                .HasKey(Co => Co.id);
 
-            modelBuilder.Entity<Compra>()
+           /* modelBuilder.Entity<Compra>()
                 .HasOne(Co => Co.comprador)
                 .WithMany(U => U.compras);
-
+           */
             modelBuilder.Ignore<Mercado>();
             modelBuilder.Ignore<CompraDAO1>();
             modelBuilder.Ignore<CarroDAO1>();

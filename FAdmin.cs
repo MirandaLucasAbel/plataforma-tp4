@@ -116,7 +116,7 @@ namespace Slc_Mercado
                 columnas.Add("Cuil-Cuit");
                 foreach (Usuario user in usuarios)
                 {
-                    datos.Add(new List<string>(new string[] { user.usuario_id.ToString(), user.dni.ToString(), user.nombre.ToString(), user.apellido.ToString(), user.mail.ToString(), user.password.ToString(), user.tipo.ToString(), user.cuil.ToString(), }));
+                    datos.Add(new List<string>(new string[] { user.id.ToString(), user.dni.ToString(), user.nombre.ToString(), user.apellido.ToString(), user.mail.ToString(), user.password.ToString(), user.tipo.ToString(), user.cuil.ToString(), }));
                 }
 
             }

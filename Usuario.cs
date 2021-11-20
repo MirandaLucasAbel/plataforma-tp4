@@ -7,7 +7,7 @@ namespace tp1
 
     public class Usuario
     {
-        public int usuario_id { get; set; }
+        public int id { get; set; }
         public int dni { get; set; }
         public string nombre { get; set; }
         public string apellido { get; set; }
@@ -15,18 +15,18 @@ namespace tp1
         public string password { get; set; }
         public string tipo { get; set; }
         public string cuil { get; set; }
-        [NotMapped]
-        public Carro MiCarro { get; set; }
+     
+        public List<Carro> MiCarro { get; set; }
 
-       
+        public List<Usuario_Carro> usuario_carro { get; set; }
+        public List<Usuario_Compra> usuario_compra { get; set; }
 
-        public int id;
-        public List<Compra> compras { get; set; }
-
-
+        public Usuario()
+        {
+        }
         public Usuario(int id, int dni, string nombre, string apellido, string mail, string password, string tipo, string cuilCuit)
         {
-            this.usuario_id = id;
+            this.id = id;
             this.dni = dni;
             this.nombre = nombre;
             this.apellido = apellido;
@@ -34,16 +34,14 @@ namespace tp1
             this.password = password;
             this.tipo = tipo;
             this.cuil = cuilCuit;
-            this.MiCarro = new Carro();
+            //this.MiCarro = new Carro(); //revisar
         }
 
-        public Usuario()
-        {
-        }
+ 
 
         public string toString()
         {
-            return "Usuario: " + this.usuario_id + " - Dni " + this.dni + " - Nombre " + this.nombre + " - Apellido " + this.apellido + " - Mail " + this.mail + " - Cuil/Cuit:" + this.cuil + " - Tipo de Usuario:" + this.tipo; // " - Carro :" + MiCarro.toString();
+            return "Usuario: " + this.id + " - Dni " + this.dni + " - Nombre " + this.nombre + " - Apellido " + this.apellido + " - Mail " + this.mail + " - Cuil/Cuit:" + this.cuil + " - Tipo de Usuario:" + this.tipo; // " - Carro :" + MiCarro.toString();
         }
     }
 }

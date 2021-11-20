@@ -1,12 +1,12 @@
 ﻿using System;
 
-using System.IO;
+
 
 using System.Collections.Generic;
 using tp1;
 using config;
-using System;
-using System.Data.SqlClient;
+
+
 using Clase7; //revisar!!! revisar revisar
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -34,7 +34,7 @@ namespace dao
 				contexto = new MyContext();
 				contexto.usuarios.Load();
 
-				usuario = contexto.usuarios.Where(U => (U.usuario_id == userId)).FirstOrDefault();
+				usuario = contexto.usuarios.Where(U => (U.id == userId)).FirstOrDefault();
 
 			}
 			catch (Exception ex)
@@ -135,7 +135,7 @@ namespace dao
 		{
 			bool salida = false;
 			foreach (Usuario u in contexto.usuarios)
-				if (u.usuario_id == id)
+				if (u.id == id)
 				{
 					u.nombre = nombre;
 					u.apellido = apellido;
@@ -159,7 +159,7 @@ namespace dao
 			{
 				bool salida = false;
 				foreach (Usuario u in contexto.usuarios)
-					if (u.usuario_id == id)
+					if (u.id == id)
 					{
 						contexto.usuarios.Remove(u);
 						salida = true;
@@ -182,7 +182,7 @@ namespace dao
 			//metodo para prueba
 			contexto = new MyContext();
 			contexto.usuarios.Load();
-			MessageBox.Show(contexto.usuarios.Where(U => U.usuario_id == 29).FirstOrDefault().nombre);
+			MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}
 
 	}
