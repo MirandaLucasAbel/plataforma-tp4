@@ -130,7 +130,7 @@ namespace Slc_Mercado
                 columnas.Add("Categoria");
                 foreach (Producto prod in productos)
                 {
-                    datos.Add(new List<string>(new string[] { prod.id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString(), prod.categoria.categoria_id.ToString() }));
+                    datos.Add(new List<string>(new string[] { prod.id.ToString(), prod.nombre.ToString(), prod.precio.ToString(), prod.cantidad.ToString(), prod.id_categoria.ToString() }));
                 }
 
             }

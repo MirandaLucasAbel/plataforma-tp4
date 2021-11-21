@@ -12,6 +12,7 @@ namespace tp1
         public double precio { get; set; }
         public int cantidad { get; set; }
 
+        public int id_categoria { get; set; }
 
    
         public Categoria categoria { get; set; }
@@ -24,6 +25,7 @@ namespace tp1
             this.precio = precio;
             this.cantidad = cantidad;
             this.categoria = categoria;
+            this.id_categoria = categoria.categoria_id;
         
         }
 
@@ -34,6 +36,7 @@ namespace tp1
             this.precio = precio;
             this.cantidad = cantidad;
             this.categoria = categoria;
+            this.id_categoria = categoria.categoria_id;
 
         }
 

@@ -4,14 +4,16 @@ using Clase7;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace tp4EF.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20211120232131_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,9 +97,6 @@ namespace tp4EF.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("cantidad")
-                        .HasColumnType("int");
-
-                    b.Property<int>("id_categoria")
                         .HasColumnType("int");
 
                     b.Property<string>("nombre")

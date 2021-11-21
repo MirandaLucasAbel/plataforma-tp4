@@ -27,6 +27,8 @@ namespace Clase7
         //diccionario no ok
        // public DbSet<Carro> carro { get; set; }
 
+        public DbSet<Usuario_Compra> usuario_compra { get; set; }
+
 
 
         public MyContext() { }
@@ -105,10 +107,12 @@ namespace Clase7
                .ToTable("compras")
                .HasKey(Co => Co.id);
 
-           /* modelBuilder.Entity<Compra>()
-                .HasOne(Co => Co.comprador)
-                .WithMany(U => U.compras);
-           */
+            /* modelBuilder.Entity<Compra>()
+                 .HasOne(Co => Co.comprador)
+                 .WithMany(U => U.compras);
+            */
+
+
             modelBuilder.Ignore<Mercado>();
             modelBuilder.Ignore<CompraDAO1>();
             modelBuilder.Ignore<CarroDAO1>();

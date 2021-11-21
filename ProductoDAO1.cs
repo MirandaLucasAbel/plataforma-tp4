@@ -84,10 +84,15 @@ namespace dao
             {
                 //conseguir la categoria para insertar
                 contexto.categorias.Load();
+                contexto.producto.Load();
+                List<Categoria> categorias;
+                CategoriaDAO1 daoCateg = new CategoriaDAO1();
+                categorias = daoCateg.getAll();
 
+                int id = contexto.producto.OrderByDescending(u => u.id).FirstOrDefault().id;
                 Categoria categoria = contexto.categorias.Where(C => (C.categoria_id == id_categoria)).FirstOrDefault();
 
-                Producto producto = new Producto(nombre,precio,cantidad,categoria);
+                Producto producto = new Producto(++id,nombre,precio,cantidad,categoria);
                 contexto.producto.Add(producto);
                 contexto.SaveChanges();
                 return true;
