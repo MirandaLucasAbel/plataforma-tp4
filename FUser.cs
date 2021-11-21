@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using tp1;
 using dao;
+using tp4EF;
 
 namespace Slc_Mercado
 {
@@ -36,7 +37,7 @@ namespace Slc_Mercado
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {
+        {/*
             int idUsuario = mercado.getUsuario().id;
 
             string message = mercado.mostrarCarro(); 
@@ -69,10 +70,12 @@ namespace Slc_Mercado
                     Console.WriteLine(ex.Message);
                     MessageBox.Show("Ocurrio un error al intentar realizar la compra");
                 }
-            }
+            }*/
 
-           
-         
+            this.Close();
+            FCarro carroCompra = new FCarro();
+            carroCompra.Show();
+
         }
 
 
