@@ -16,7 +16,9 @@ namespace dao
     {
         private MyContext contexto;
 
-        public CategoriaDAO1(){}
+        public CategoriaDAO1(MyContext contexto){
+            this.contexto = contexto;
+        }
 
         public List<Categoria> getAll()
         {
@@ -24,10 +26,10 @@ namespace dao
 
             try
             {
-                contexto = new MyContext();
-                contexto.categorias.Load();
+                this.contexto = new MyContext();
+                this.contexto.categorias.Load();
 
-                foreach (Categoria C in contexto.categorias)
+                foreach (Categoria C in this.contexto.categorias)
                     categorias.Add(C);
             }
             catch (Exception ex)
@@ -49,8 +51,8 @@ namespace dao
             try
             {
                 Categoria categoria = new Categoria(nombre);
-                contexto.categorias.Add(categoria);
-                contexto.SaveChanges();
+                this.contexto.categorias.Add(categoria);
+                this.contexto.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -63,15 +65,15 @@ namespace dao
         public bool update(int id,string nombre)
         {
             bool salida = false;
-            foreach (Categoria c in contexto.categorias)
+            foreach (Categoria c in this.contexto.categorias)
                 if (c.categoria_id == id)
                 {
                     c.nombre = nombre;
-                    contexto.categorias.Update(c);
+                    this.contexto.categorias.Update(c);
                     salida = true;
                 }
             if (salida)
-                contexto.SaveChanges();
+                this.contexto.SaveChanges();
             return salida;
         }
 
@@ -80,14 +82,14 @@ namespace dao
             try
             {
                 bool salida = false;
-                foreach (Categoria c in contexto.categorias)
+                foreach (Categoria c in this.contexto.categorias)
                     if (c.categoria_id == id)
                     {
-                        contexto.categorias.Remove(c);
+                        this.contexto.categorias.Remove(c);
                         salida = true;
                     }
                 if (salida)
-                    contexto.SaveChanges();
+                    this.contexto.SaveChanges();
                 return salida;
             }
             catch (Exception)
@@ -102,10 +104,10 @@ namespace dao
             Categoria categoria = new Categoria();
             try
             {
-                contexto = new MyContext();
-                contexto.categorias.Load();
+                this.contexto = new MyContext();
+                this.contexto.categorias.Load();
 
-                categoria = contexto.categorias.Where(C => (C.categoria_id == id )).FirstOrDefault();
+                categoria = this.contexto.categorias.Where(C => (C.categoria_id == id )).FirstOrDefault();
             }
             catch (Exception ex)
             {

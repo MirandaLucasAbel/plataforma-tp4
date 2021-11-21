@@ -3,8 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using dao;
-
-
+using Clase7;
 
 namespace tp1
 {
@@ -30,16 +29,18 @@ namespace tp1
         private CompraDAO1 compradao;
         private CarroDAO1 carroDao;
 
+        private MyContext contexto;
+
         public Mercado()
             {
-       
-          
+
+            this.contexto = new MyContext();
 
             /*daos*/
-             this.categoriaDao = new CategoriaDAO1();
-            this.compradao = new CompraDAO1();
-            this.usuarioDao = new UsuarioDAO1();
-            this.productoDao = new ProductoDAO1();
+             this.categoriaDao = new CategoriaDAO1(this.contexto);
+            this.compradao = new CompraDAO1(this.contexto);
+            this.usuarioDao = new UsuarioDAO1(this.contexto);
+            this.productoDao = new ProductoDAO1(this.contexto);
             
 
             //foreach (Usuario us in usuarios) us.MiCarro = new Carro();
@@ -467,7 +468,7 @@ namespace tp1
 
         public bool iniciarSesion(int dni,string pass)
         {
-            UsuarioDAO1 usuarioDao = new UsuarioDAO1();
+            UsuarioDAO1 usuarioDao = new UsuarioDAO1(this.contexto);
             this.usuario = usuarioDao.getUsuarioByDni(dni, pass);
             if (this.usuario != null && this.usuario.nombre!=null)
             {

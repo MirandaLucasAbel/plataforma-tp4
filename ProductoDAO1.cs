@@ -19,8 +19,9 @@ namespace dao
        
         private MyContext contexto;
 
-        public ProductoDAO1()
+        public ProductoDAO1(MyContext contexto)
         {
+            this.contexto = contexto;
         }
 
         public Producto get(int id)
@@ -28,10 +29,10 @@ namespace dao
             Producto producto = new Producto();
             try
             {
-                contexto = new MyContext();
-                contexto.categorias.Load();
+                this.contexto = new MyContext();
+                this.contexto.categorias.Load();
 
-                producto = contexto.producto.Where(P => (P.id == id)).FirstOrDefault();
+                producto = this.contexto.producto.Where(P => (P.id == id)).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -53,10 +54,10 @@ namespace dao
         
             try
             {
-            contexto = new MyContext();
-            contexto.producto.Load();
+            this.contexto = new MyContext();
+            this.contexto.producto.Load();
 
-            foreach (Producto P in contexto.producto)
+            foreach (Producto P in this.contexto.producto)
                     productos.Add(P);
 
             }
@@ -83,18 +84,18 @@ namespace dao
             try
             {
                 //conseguir la categoria para insertar
-                contexto.categorias.Load();
-                contexto.producto.Load();
+                this.contexto.categorias.Load();
+                this.contexto.producto.Load();
                 List<Categoria> categorias;
-                CategoriaDAO1 daoCateg = new CategoriaDAO1();
+                CategoriaDAO1 daoCateg = new CategoriaDAO1(this.contexto);
                 categorias = daoCateg.getAll();
 
-                int id = contexto.producto.OrderByDescending(u => u.id).FirstOrDefault().id;
-                Categoria categoria = contexto.categorias.Where(C => (C.categoria_id == id_categoria)).FirstOrDefault();
+                int id = this.contexto.producto.OrderByDescending(u => u.id).FirstOrDefault().id;
+                Categoria categoria = this.contexto.categorias.Where(C => (C.categoria_id == id_categoria)).FirstOrDefault();
 
                 Producto producto = new Producto(++id,nombre,precio,cantidad,categoria);
-                contexto.producto.Add(producto);
-                contexto.SaveChanges();
+                this.contexto.producto.Add(producto);
+                this.contexto.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -107,7 +108,7 @@ namespace dao
         public bool update(int id, string nombreProd, double precioProd, int cantProd,int idCateg )
         {
             bool salida = false;
-            foreach (Producto p in contexto.producto)
+            foreach (Producto p in this.contexto.producto)
                 if (p.id == id)
                 {
                     p.nombre = nombreProd;
@@ -117,7 +118,7 @@ namespace dao
                     salida = true;
                 }
             if (salida)
-                contexto.SaveChanges();
+                this.contexto.SaveChanges();
             return salida;
         }
 
@@ -141,14 +142,14 @@ namespace dao
             try
             {
                 bool salida = false;
-                foreach (Producto p in contexto.producto)
+                foreach (Producto p in this.contexto.producto)
                     if (p.id == id)
                     {
-                        contexto.producto.Remove(p);
+                        this.contexto.producto.Remove(p);
                         salida = true;
                     }
                 if (salida)
-                    contexto.SaveChanges();
+                    this.contexto.SaveChanges();
                 return salida;
             }
             catch (Exception)

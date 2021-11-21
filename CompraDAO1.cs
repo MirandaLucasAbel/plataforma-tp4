@@ -8,11 +8,16 @@ using tp1;
 using config;
 
 using System.Data.SqlClient;
+using Clase7;
 
 public class CompraDAO1 : DataBaseConfig
 {
-
-    private string tabla = "compra";
+    private MyContext contexto;
+    public CompraDAO1(MyContext contexto)
+    {
+        this.contexto = contexto;
+    }
+   
 
     public Compra get(int id_usuario)
     {
@@ -65,7 +70,7 @@ public class CompraDAO1 : DataBaseConfig
         try
         {
 
-            string sql = $"use[ecommerce-plataforma]; delete from {tabla} where id = {id}";
+            string sql = $"use[ecommerce-plataforma]; delete from {1} where id = {id}";
             SqlDataReader data = ejecutarQuery(sql);
 
         }
