@@ -496,5 +496,10 @@ namespace tp1
         {
             return this.usuarioDao.getUserById(id);
         }
+
+        public void cerrarSesion()
+        {
+            this.contexto.Dispose();
+        }
     }
 }
