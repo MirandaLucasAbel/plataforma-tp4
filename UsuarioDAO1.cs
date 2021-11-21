@@ -20,8 +20,9 @@ namespace dao
 
 		private MyContext contexto;
 
-		public UsuarioDAO1()
+		public UsuarioDAO1(MyContext contexto)
 		{
+			this.contexto = contexto;
 		}
 
 		public  Usuario getUserById(int userId)
@@ -31,10 +32,10 @@ namespace dao
 			{
 
 
-				contexto = new MyContext();
-				contexto.usuarios.Load();
+			
+				this.contexto.usuarios.Load();
 
-				usuario = contexto.usuarios.Where(U => (U.id == userId)).FirstOrDefault();
+				usuario = this.contexto.usuarios.Where(U => (U.id == userId)).FirstOrDefault();
 
 			}
 			catch (Exception ex)
@@ -62,10 +63,10 @@ namespace dao
 			try
             {
 				
-				contexto = new MyContext();
-				contexto.usuarios.Load();
+				
+				this.contexto.usuarios.Load();
 
-				usuario = contexto.usuarios.Where(U =>( U.dni==dni && U.password==password)).FirstOrDefault();
+				usuario = this.contexto.usuarios.Where(U =>( U.dni==dni && U.password==password)).FirstOrDefault();
 				
 			}
 			catch(Exception ex)
@@ -88,10 +89,10 @@ namespace dao
 			List<Usuario> usuarios = new List<Usuario>();
 			try
 			{
-				contexto = new MyContext();
-				contexto.usuarios.Load();
+				
+				this.contexto.usuarios.Load();
 
-				foreach (Usuario U in contexto.usuarios)
+				foreach (Usuario U in this.contexto.usuarios)
 					usuarios.Add(U);
 
 			}
@@ -113,10 +114,10 @@ namespace dao
 			
 			try
 			{
-				contexto = new MyContext();
+				
 				Usuario nuevo = new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido = apellido, tipo = tipo, cuil = cuilCuit, MiCarro = new List<Carro>(), usuario_carro = new List<Usuario_Carro>(), usuario_compra = new List<Usuario_Compra>() };
-				contexto.usuarios.Add(nuevo);
-				contexto.SaveChanges();
+				this.contexto.usuarios.Add(nuevo);
+				this.contexto.SaveChanges();
 				return true;
 
 
@@ -134,7 +135,7 @@ namespace dao
 		public bool update(int id, int dni, string nombre, string apellido, string mail, string password, string cuit_Cuil, string tipo)
 		{
 			bool salida = false;
-			foreach (Usuario u in contexto.usuarios)
+			foreach (Usuario u in this.contexto.usuarios)
 				if (u.id == id)
 				{
 					u.nombre = nombre;
@@ -144,11 +145,11 @@ namespace dao
 					u.password = password;
 					u.cuil = cuit_Cuil;
 					u.tipo = tipo;
-					contexto.usuarios.Update(u);
+					this.contexto.usuarios.Update(u);
 					salida = true;
 				}
 			if (salida)
-				contexto.SaveChanges();
+				this.contexto.SaveChanges();
 			return salida;
 
 		}
@@ -158,14 +159,14 @@ namespace dao
 			try
 			{
 				bool salida = false;
-				foreach (Usuario u in contexto.usuarios)
+				foreach (Usuario u in this.contexto.usuarios)
 					if (u.id == id)
 					{
-						contexto.usuarios.Remove(u);
+						this.contexto.usuarios.Remove(u);
 						salida = true;
 					}
 				if (salida)
-					contexto.SaveChanges();
+					this.contexto.SaveChanges();
 				return salida;
 			}
 			catch (Exception)
@@ -180,7 +181,7 @@ namespace dao
 		public void getUserByTest()
 		{
 			//metodo para prueba
-			contexto = new MyContext();
+			
 			contexto.usuarios.Load();
 			//MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}

@@ -9,7 +9,7 @@ using config;
 
 namespace Clase7
 {
-    class MyContext : DbContext
+    public class MyContext : DbContext
     {
   
 
