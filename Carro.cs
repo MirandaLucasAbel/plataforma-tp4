@@ -13,12 +13,13 @@ namespace tp1
         public int id { get; set; }
         //public Dictionary<Producto, int> productos  { get; set; }
 
-        public List<Producto> productoss { get; set; }
+        //public List<Producto> productoss { get; set; }
         public int usuario_id { get; set; }
         public Usuario usuario { get; set; }
-        public List<Usuario_Carro> usuario_carro { get; set; }
+        //public List<Usuario_Carro> usuario_carro { get; set; }
+        public ICollection<Producto_Carro> producto_Carro { get; set; }
 
-       
+
 
         public Carro() {
             this.id = id;

@@ -4,14 +4,16 @@ using Clase7;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace tp4EF.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20211121230819_Relacion_Carro_Producto2")]
+    partial class Relacion_Carro_Producto2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,10 +48,15 @@ namespace tp4EF.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("Productoid")
+                        .HasColumnType("int");
+
                     b.Property<int>("usuario_id")
                         .HasColumnType("int");
 
                     b.HasKey("id");
+
+                    b.HasIndex("Productoid");
 
                     b.HasIndex("usuario_id")
                         .IsUnique();
@@ -184,6 +191,10 @@ namespace tp4EF.Migrations
 
             modelBuilder.Entity("tp1.Carro", b =>
                 {
+                    b.HasOne("tp1.Producto", null)
+                        .WithMany("carritos")
+                        .HasForeignKey("Productoid");
+
                     b.HasOne("tp1.Usuario", "usuario")
                         .WithOne("Micarro")
                         .HasForeignKey("tp1.Carro", "usuario_id")
@@ -259,6 +270,8 @@ namespace tp4EF.Migrations
 
             modelBuilder.Entity("tp1.Producto", b =>
                 {
+                    b.Navigation("carritos");
+
                     b.Navigation("producto_carro");
                 });
 

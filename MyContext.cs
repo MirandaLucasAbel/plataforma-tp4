@@ -52,16 +52,22 @@ namespace Clase7
                 .HasOne(P => P.categoria)
                 .WithMany(C => C.productos)
                 .HasForeignKey(C => C.id);
-
+            /*
             modelBuilder.Entity<Producto>()
                 .HasMany(P => P.carritos)
                 .WithMany(Ca => Ca.productoss);
+            */
 
             modelBuilder.Entity<Usuario>()
                 .ToTable("usuarios")
                 .HasKey(U => U.id);
+            modelBuilder.Entity<Usuario>()
+                .HasOne(U => U.Micarro)
+                .WithOne(Ca => Ca.usuario)
+                .HasForeignKey<Carro>(Ca => Ca.usuario_id);
+               
 
-            //tabla intermedia usuario_carro
+            /*tabla intermedia usuario_carro
             modelBuilder.Entity<Usuario_Carro>()
                 .ToTable("usuario_carro")
                 .HasKey(pk => new { pk.id_usuario, pk.id });
@@ -77,6 +83,7 @@ namespace Clase7
                 .HasOne(UC => UC.carro)
                 .WithMany(C => C.usuario_carro)
                 .HasForeignKey(up => up.id);
+            */
 
             //tabla intermedia usuario_compra
             modelBuilder.Entity<Usuario_Compra>()
@@ -93,7 +100,7 @@ namespace Clase7
             modelBuilder.Entity<Usuario_Compra>()
                 .HasOne(UC => UC.compra)
                 .WithMany(C => C.usuario_compra)
-                .HasForeignKey(up => up.id);
+                .HasForeignKey(up => up.id_categoria);
 
 
             //tabla carro
@@ -106,6 +113,24 @@ namespace Clase7
             modelBuilder.Entity<Compra>()
                .ToTable("compras")
                .HasKey(Co => Co.id);
+
+            //Tabla intermedia carro_poducto
+            modelBuilder.Entity<Producto_Carro>()
+                .ToTable("producto_carro")
+                .HasKey(pc => pc.id_Producto_Carro);
+
+
+
+            modelBuilder.Entity<Producto_Carro>()
+                .HasOne(pc => pc.producto)
+                .WithMany(p => p.producto_carro)
+                .HasForeignKey(pc => pc.id_Producto);
+
+
+            modelBuilder.Entity<Producto_Carro>()
+                .HasOne(pc => pc.carro)
+                .WithMany(Ca => Ca.producto_Carro)
+                .HasForeignKey(pc => pc.id_Carro);
 
             /* modelBuilder.Entity<Compra>()
                  .HasOne(Co => Co.comprador)

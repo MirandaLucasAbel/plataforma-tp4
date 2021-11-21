@@ -16,7 +16,8 @@ namespace tp1
 
    
         public Categoria categoria { get; set; }
-        public List<Carro> carritos { get; set; }
+        //public List<Carro> carritos { get; set; }
+        public ICollection<Producto_Carro> producto_carro { get; set; }
         public Producto() { }
         public Producto(int id, string nombre, double precio, int cantidad, Categoria categoria){
 

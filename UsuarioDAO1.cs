@@ -114,8 +114,8 @@ namespace dao
 			
 			try
 			{
-				
-				Usuario nuevo = new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido = apellido, tipo = tipo, cuil = cuilCuit, MiCarro = new List<Carro>(), usuario_carro = new List<Usuario_Carro>(), usuario_compra = new List<Usuario_Compra>() };
+
+				Usuario nuevo = null;//new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido = apellido, tipo = tipo, cuil = cuilCuit, MiCarro = new List<Carro>(), usuario_carro = new List<Usuario_Carro>(), usuario_compra = new List<Usuario_Compra>() };
 				this.contexto.usuarios.Add(nuevo);
 				this.contexto.SaveChanges();
 				return true;

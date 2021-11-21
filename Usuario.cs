@@ -16,9 +16,11 @@ namespace tp1
         public string tipo { get; set; }
         public string cuil { get; set; }
      
-        public List<Carro> MiCarro { get; set; }
+        //public List<Carro> MiCarro { get; set; }
+        public int id_carro { get; set; }
+        public Carro Micarro { get; set; }
 
-        public List<Usuario_Carro> usuario_carro { get; set; }
+        //public List<Usuario_Carro> usuario_carro { get; set; }
         public List<Usuario_Compra> usuario_compra { get; set; }
 
         public Usuario()
@@ -35,8 +37,8 @@ namespace tp1
             this.tipo = tipo;
             this.cuil = cuilCuit;
             //this.MiCarro = new Carro(); //revisar
-            this.MiCarro = new List<Carro>();
-            this.usuario_carro = new List<Usuario_Carro>();
+            //this.MiCarro = new List<Carro>();
+            //this.usuario_carro = new List<Usuario_Carro>();
             this.usuario_compra = new List<Usuario_Compra>();
         }
 

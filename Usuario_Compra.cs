@@ -11,7 +11,9 @@ namespace tp1
         public Usuario usuario {get;set;} 
 
         public int id_usuario { get; set; }
-        
+
+        public int id_categoria { get; set; }
+
 
         public Compra compra { get; set; }
 

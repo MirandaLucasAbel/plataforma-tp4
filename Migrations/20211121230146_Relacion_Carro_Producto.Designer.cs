@@ -4,20 +4,37 @@ using Clase7;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace tp4EF.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20211121230146_Relacion_Carro_Producto")]
+    partial class Relacion_Carro_Producto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.6")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CarroProducto", b =>
+                {
+                    b.Property<int>("carritosid")
+                        .HasColumnType("int");
+
+                    b.Property<int>("productossid")
+                        .HasColumnType("int");
+
+                    b.HasKey("carritosid", "productossid");
+
+                    b.HasIndex("productossid");
+
+                    b.ToTable("CarroProducto");
+                });
 
             modelBuilder.Entity("Slc_Mercado.Compra", b =>
                 {
@@ -171,6 +188,21 @@ namespace tp4EF.Migrations
                     b.HasIndex("id_categoria");
 
                     b.ToTable("usuario_compra");
+                });
+
+            modelBuilder.Entity("CarroProducto", b =>
+                {
+                    b.HasOne("tp1.Carro", null)
+                        .WithMany()
+                        .HasForeignKey("carritosid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("tp1.Producto", null)
+                        .WithMany()
+                        .HasForeignKey("productossid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Slc_Mercado.Compra", b =>
