@@ -216,8 +216,7 @@ namespace Slc_Mercado
                     mercado.agregarCategoria(nombre);
                 }
 
-                recargarDatosPorTabla(tabla1);
-                refreshData(datos, columnas);
+          
 
             }
             catch(Exception ex)
@@ -225,7 +224,14 @@ namespace Slc_Mercado
                 Console.WriteLine(ex.Message);
             }
 
-            refreshData(datos,columnas);
+          
+
+            tablaDatos.SelectedIndex = 0;
+            tablaDatos.SelectedIndex = tablaDatos.FindStringExact(tabla1);
+
+
+
+
 
         }
 
@@ -341,7 +347,8 @@ namespace Slc_Mercado
             {
                 Console.WriteLine(ex.Message);
             }
-            refreshData(datos,columnas); 
+            tablaDatos.SelectedIndex = 0;
+            tablaDatos.SelectedIndex = tablaDatos.FindStringExact(tabla1);
         }
 
 
