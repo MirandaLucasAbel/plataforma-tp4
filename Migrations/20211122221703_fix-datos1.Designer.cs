@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace tp4EF.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20211122204632_fixtest")]
-    partial class fixtest
+    [Migration("20211122221703_fix-datos1")]
+    partial class fixdatos1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,6 +51,18 @@ namespace tp4EF.Migrations
                         .IsUnique();
 
                     b.ToTable("carro");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            usuario_id = 1
+                        },
+                        new
+                        {
+                            id = 2,
+                            usuario_id = 2
+                        });
                 });
 
             modelBuilder.Entity("tp1.Categoria", b =>
@@ -66,6 +78,23 @@ namespace tp4EF.Migrations
                     b.HasKey("categoria_id");
 
                     b.ToTable("categorias");
+
+                    b.HasData(
+                        new
+                        {
+                            categoria_id = 1,
+                            nombre = "electro"
+                        },
+                        new
+                        {
+                            categoria_id = 2,
+                            nombre = "deco"
+                        },
+                        new
+                        {
+                            categoria_id = 3,
+                            nombre = "varios"
+                        });
                 });
 
             modelBuilder.Entity("tp1.Producto", b =>
@@ -92,6 +121,32 @@ namespace tp4EF.Migrations
                     b.HasIndex("id_categoria");
 
                     b.ToTable("producto");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            cantidad = 200,
+                            id_categoria = 1,
+                            nombre = "tv",
+                            precio = 100.0
+                        },
+                        new
+                        {
+                            id = 2,
+                            cantidad = 300,
+                            id_categoria = 3,
+                            nombre = "radio",
+                            precio = 150.0
+                        },
+                        new
+                        {
+                            id = 3,
+                            cantidad = 200,
+                            id_categoria = 2,
+                            nombre = "silla",
+                            precio = 100.0
+                        });
                 });
 
             modelBuilder.Entity("tp1.Producto_Carro", b =>
@@ -153,22 +208,52 @@ namespace tp4EF.Migrations
                     b.HasKey("id");
 
                     b.ToTable("usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            apellido = "apellido",
+                            cuil = "123",
+                            dni = 123,
+                            id_carro = 1,
+                            mail = "mail",
+                            nombre = "cliente",
+                            password = "pass",
+                            tipo = "cliente"
+                        },
+                        new
+                        {
+                            id = 2,
+                            apellido = "apellido",
+                            cuil = "423",
+                            dni = 321,
+                            id_carro = 2,
+                            mail = "mail",
+                            nombre = "admin",
+                            password = "pass",
+                            tipo = "admin"
+                        });
                 });
 
             modelBuilder.Entity("tp1.Usuario_Compra", b =>
                 {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("id_compra")
+                        .HasColumnType("int");
+
                     b.Property<int>("id_usuario")
                         .HasColumnType("int");
 
-                    b.Property<int>("id")
-                        .HasColumnType("int");
+                    b.HasKey("id");
 
-                    b.Property<int>("id_categoria")
-                        .HasColumnType("int");
+                    b.HasIndex("id_compra");
 
-                    b.HasKey("id_usuario", "id");
-
-                    b.HasIndex("id_categoria");
+                    b.HasIndex("id_usuario");
 
                     b.ToTable("usuario_compra");
                 });
@@ -218,7 +303,7 @@ namespace tp4EF.Migrations
                 {
                     b.HasOne("Slc_Mercado.Compra", "compra")
                         .WithMany("usuario_compra")
-                        .HasForeignKey("id_categoria")
+                        .HasForeignKey("id_compra")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

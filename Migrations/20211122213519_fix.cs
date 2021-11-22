@@ -2,7 +2,7 @@
 
 namespace tp4EF.Migrations
 {
-    public partial class fixtest : Migration
+    public partial class fix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -97,16 +97,17 @@ namespace tp4EF.Migrations
                 name: "usuario_compra",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     id_usuario = table.Column<int>(type: "int", nullable: false),
-                    id_categoria = table.Column<int>(type: "int", nullable: false)
+                    id_compra = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_usuario_compra", x => new { x.id_usuario, x.id });
+                    table.PrimaryKey("PK_usuario_compra", x => x.id);
                     table.ForeignKey(
-                        name: "FK_usuario_compra_compras_id_categoria",
-                        column: x => x.id_categoria,
+                        name: "FK_usuario_compra_compras_id_compra",
+                        column: x => x.id_compra,
                         principalTable: "compras",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -145,6 +146,44 @@ namespace tp4EF.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "categorias",
+                columns: new[] { "categoria_id", "nombre" },
+                values: new object[,]
+                {
+                    { 1, "electro" },
+                    { 2, "deco" },
+                    { 3, "varios" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "usuarios",
+                columns: new[] { "id", "apellido", "cuil", "dni", "id_carro", "mail", "nombre", "password", "tipo" },
+                values: new object[,]
+                {
+                    { 1, "apellido", null, 123, 1, "mail", "cliente", null, "cliente" },
+                    { 2, "apellido", null, 321, 2, "mail", "admin", null, "admin" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "carro",
+                columns: new[] { "id", "usuario_id" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 2, 2 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "producto",
+                columns: new[] { "id", "cantidad", "id_categoria", "nombre", "precio" },
+                values: new object[,]
+                {
+                    { 1, 200, 1, "tv", 100.0 },
+                    { 3, 200, 2, "silla", 100.0 },
+                    { 2, 300, 3, "radio", 150.0 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_carro_usuario_id",
                 table: "carro",
@@ -167,9 +206,14 @@ namespace tp4EF.Migrations
                 column: "id_Producto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_usuario_compra_id_categoria",
+                name: "IX_usuario_compra_id_compra",
                 table: "usuario_compra",
-                column: "id_categoria");
+                column: "id_compra");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_compra_id_usuario",
+                table: "usuario_compra",
+                column: "id_usuario");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -38,21 +38,31 @@ namespace Slc_Mercado
             bool flag = true;
             try
             {
+
                 this.contexto.producto_carro.Load();
                 Producto_Carro producto_Carro = this.contexto.producto_carro.Where(C => (C.id_Carro == id_carro && C.id_Producto == id_producto)).FirstOrDefault();
                 if (producto_Carro == null)
                 {
-                    //el producto no existe, lo agrego 
-                    producto_Carro = new Producto_Carro { id_Producto = id_producto, cantidad = cantidad, id_Carro = id_carro }; //conseguir id de carro de mercado
-                    this.contexto.producto_carro.Add(producto_Carro);
-                    this.contexto.SaveChanges();
+                    Producto producto = this.contexto.producto.Where(P => (P.id == id_producto)).FirstOrDefault();
+                    if (producto.cantidad >= cantidad)
+                    {
+                        //el producto no existe, lo agrego 
+                        producto_Carro = new Producto_Carro { id_Producto = id_producto, cantidad = cantidad, id_Carro = id_carro }; //conseguir id de carro de mercado
+                        this.contexto.producto_carro.Add(producto_Carro);
+                        this.contexto.SaveChanges();
+                    }
+                    
                 }
                 else 
                 {
-                    //el producto existe le actualizo la cantidad
-                    producto_Carro.cantidad = cantidad;
-                    this.contexto.producto_carro.Update(producto_Carro); //preguntar si la cantidad es 0 y eliminar registro
-                    this.contexto.SaveChanges();
+                    Producto producto = this.contexto.producto.Where(P => (P.id == id_producto)).FirstOrDefault();
+                    if (producto.cantidad >= cantidad)
+                    {
+                        //el producto existe le actualizo la cantidad
+                        producto_Carro.cantidad = cantidad;
+                        this.contexto.producto_carro.Update(producto_Carro); //preguntar si la cantidad es 0 y eliminar registro
+                        this.contexto.SaveChanges();
+                    }
                 }
             }
             catch (Exception ex)
@@ -63,15 +73,65 @@ namespace Slc_Mercado
             return flag;
         }
 
-        public bool update(int id_carro, int id_producto, int cantidad)
+        public bool update(int id,int cantidad)
         {
   
             bool flag = true;
             try
             {
-                Producto_Carro producto_Carro = this.contexto.producto_carro.Where(C => (C.id_Carro == id_carro && C.id_Producto == id_producto)).FirstOrDefault();
-                producto_Carro.cantidad = cantidad;
-                this.contexto.producto_carro.Update(producto_Carro);
+                this.contexto.producto.Load();
+
+           
+
+                Producto_Carro producto_Carro = this.contexto.producto_carro.Where(C => (C.id_Producto_Carro == id )).FirstOrDefault();
+
+                Producto producto = this.contexto.producto.Where(P => (P.id == producto_Carro.id_Producto)).FirstOrDefault();
+                if (producto.cantidad >= producto_Carro.cantidad)
+                {
+                    producto_Carro.cantidad = cantidad;
+                    this.contexto.producto_carro.Update(producto_Carro);
+                    this.contexto.SaveChanges();
+                }
+               
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                flag = false;
+            }
+            return flag;
+        }
+
+        
+
+        public bool updateCompra(int id,double total)
+        {
+            bool flag = true;
+            try
+            {
+                Compra compra = this.contexto.compras.Where(C => (C.id == id)).FirstOrDefault();
+                compra.total = total;
+                this.contexto.compras.Update(compra);
+                this.contexto.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                flag = false;
+            }
+            return flag;
+        }
+
+        public bool deleteCompra(int id)
+        {
+            bool flag = true;
+            try
+            {
+                Compra compra = this.contexto.compras.Where(C => (C.id == id)).FirstOrDefault();
+                this.contexto.compras.Remove(compra);
+                this.contexto.SaveChanges();
 
             }
             catch (Exception ex)
@@ -87,8 +147,9 @@ namespace Slc_Mercado
             bool flag = true;
             try
             {
-                Producto_Carro pc = this.contexto.producto_carro.Where(pc => pc.id_Carro == id).FirstOrDefault();
+                Producto_Carro pc = this.contexto.producto_carro.Where(pc => pc.id_Producto_Carro == id).FirstOrDefault();
                 this.contexto.producto_carro.Remove(pc);
+                this.contexto.SaveChanges();
 
             }
             catch (Exception ex)
@@ -96,10 +157,7 @@ namespace Slc_Mercado
                 Console.WriteLine(ex.Message);
                 flag = false;
             }
-            finally
-            {
-                
-            }
+
             return flag;
         }
 
@@ -144,14 +202,19 @@ namespace Slc_Mercado
 
                 vaciarCarrito(carro.id);
                 this.contexto.usuario_compra.Load();
-                List<Usuario_Compra> usuario_compra = new List<Usuario_Compra>();
-                foreach (Usuario_Compra UC in this.contexto.usuario_compra)
-                {
-                    usuario_compra.Add(UC);
-                }
-                 
-                Compra compra = new Compra { total = total, usuario_compra = usuario_compra };
+
+                Compra compra = new Compra { total = total };
+
+
                 this.contexto.compras.Add(compra);
+
+                this.contexto.SaveChanges();
+
+
+                Usuario_Compra usuario_compra = new Usuario_Compra { id_usuario = carro.usuario_id, id_compra = compra.id };
+                this.contexto.usuario_compra.Add(usuario_compra);
+
+                this.contexto.SaveChanges();
 
                 return true;
             }

@@ -3,14 +3,16 @@ using Clase7;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace tp4EF.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20211122213519_fix")]
+    partial class fix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,24 +214,20 @@ namespace tp4EF.Migrations
                         {
                             id = 1,
                             apellido = "apellido",
-                            cuil = "123",
                             dni = 123,
                             id_carro = 1,
                             mail = "mail",
                             nombre = "cliente",
-                            password = "pass",
                             tipo = "cliente"
                         },
                         new
                         {
                             id = 2,
                             apellido = "apellido",
-                            cuil = "423",
                             dni = 321,
                             id_carro = 2,
                             mail = "mail",
                             nombre = "admin",
-                            password = "pass",
                             tipo = "admin"
                         });
                 });

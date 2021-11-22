@@ -21,7 +21,7 @@ namespace Slc_Mercado
         public List<Producto> productos;
         public List<Categoria> categorias;
         public List<Usuario> usuarios;
-        public List<List<string>> compras;
+        public List<Compra>  compras;
 
         public Mercado mercado;
 
@@ -150,14 +150,14 @@ namespace Slc_Mercado
             {
                 columnas.Clear();
                 columnas.Add("ID");
-                columnas.Add("id_usuario");
-                columnas.Add("producto");
-                columnas.Add("cantidad");
                 columnas.Add("total");
 
-                foreach (List<string> compra in compras)
+                foreach (Compra compra in compras)
                 {
-                    datos.Add(compra); 
+                    List<string> data = new List<string>();
+                    data.Add(compra.id.ToString());
+                    data.Add(compra.total.ToString());
+                    datos.Add(data); 
                 }
             }
         }
@@ -300,6 +300,15 @@ namespace Slc_Mercado
                         int.TryParse(tabla.Rows[e.RowIndex].Cells[0].Value.ToString(), out id);
 
                         mercado.modificarUsuario(id,dniUser,nombreUser,apellidoUser,mailUser,password,cuit_cuil,tipo);
+                    }
+
+                    if (tabla1 == "Tabla_Compras")
+                    {
+                        double total;
+                        int.TryParse(tabla.Rows[e.RowIndex].Cells[0].Value.ToString(), out id);
+                        double.TryParse(tabla.Rows[e.RowIndex].Cells[1].Value.ToString(), out total);
+                        Console.WriteLine("editando compra");
+                        mercado.modificarCompra(id, total);
                     }
 
 

@@ -191,7 +191,7 @@ namespace dao
 		{
 			//metodo para prueba
 			
-			contexto.usuarios.Load();
+			//contexto.usuarios.Load();
 			//MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}
 

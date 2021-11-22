@@ -30,10 +30,11 @@ namespace tp4EF
             {
                 List<string> data = new List<string>();
                 Producto producto = producto_carro.producto;
+                data.Add(producto_carro.id_Producto_Carro.ToString());
                 data.Add(producto.nombre);
                 data.Add(producto.precio.ToString());
-                data.Add(producto.cantidad.ToString());
-                double total = producto.cantidad * producto.precio;
+                data.Add(producto_carro.cantidad.ToString());
+                double total = producto_carro.cantidad * producto.precio;
                 data.Add(total.ToString());
 
                 dataGridView1.Rows.Add(data.ToArray());
@@ -57,16 +58,43 @@ namespace tp4EF
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            int id_producto_carro;
+            int cantidad;
+            try
+            {
+                if (e.ColumnIndex == 5)
+                {
+                    bool idOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), out id_producto_carro);
+                    bool cantOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), out cantidad);
+                    mercado.modificarProductoCarro(id_producto_carro, cantidad);
+                    //MessageBox.Show("modificar");
+
+                }
+                if (e.ColumnIndex == 6)
+                {
+                    bool idOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), out id_producto_carro);
+                    mercado.eliminarProductoCarro(id_producto_carro);
+                    MessageBox.Show("borrar");
+
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+          
+          
         }
+
+
+        
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //volver a pantalla anterior //revisar
-            hijoMain2 = new FUser(mercado);
-            hijoMain2.MdiParent = this;
-            hijoMain2.Show();
             this.Close();
+            FUser Fusuario = new FUser(this.mercado);
+            Fusuario.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -74,7 +102,21 @@ namespace tp4EF
             bool flag = this.mercado.comprar();
             string mensaje = (flag) ? "compra realizada!" : "ocurrio un error al intentar realizar la compra";
             MessageBox.Show(mensaje);
-            
+            this.Close();
+            FUser Fusuario = new FUser(this.mercado);
+            Fusuario.Show();
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            mercado.cerrarSesion();
+            this.Close();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            mercado.vaciarCarro();
         }
     }
 }

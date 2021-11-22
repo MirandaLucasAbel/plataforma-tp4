@@ -12,7 +12,7 @@ namespace tp1
 
         public int id_usuario { get; set; }
 
-        public int id_categoria { get; set; }
+        public int id_compra { get; set; }
 
 
         public Compra compra { get; set; }

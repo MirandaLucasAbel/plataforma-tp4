@@ -92,7 +92,7 @@ namespace Clase7
             //tabla intermedia usuario_compra
             modelBuilder.Entity<Usuario_Compra>()
                 .ToTable("usuario_compra")
-                .HasKey(pk => new { pk.id_usuario, pk.id });
+                .HasKey(UC => UC.id);
 
 
             modelBuilder.Entity<Usuario_Compra>()
@@ -104,7 +104,7 @@ namespace Clase7
             modelBuilder.Entity<Usuario_Compra>()
                 .HasOne(UC => UC.compra)
                 .WithMany(C => C.usuario_compra)
-                .HasForeignKey(up => up.id_categoria);
+                .HasForeignKey(up => up.id_compra);
 
 
             //tabla carro
@@ -140,6 +140,28 @@ namespace Clase7
                  .HasOne(Co => Co.comprador)
                  .WithMany(U => U.compras);
             */
+
+            modelBuilder.Entity<Usuario>().HasData(
+                new { id =1,dni=123,nombre="cliente", apellido="apellido", mail = "mail", password = "pass",tipo="cliente", cuil = "123",id_carro=1},
+                new { id = 2, dni = 321, nombre = "admin", apellido = "apellido", mail = "mail", password = "pass", tipo = "admin", cuil = "423", id_carro = 2 });
+
+            modelBuilder.Entity<Carro>().HasData(
+           new { id = 1, usuario_id = 1 },
+           new { id = 2, usuario_id = 2 });
+
+            modelBuilder.Entity<Categoria>().HasData(
+            new { categoria_id = 1, nombre = "electro" },
+           new { categoria_id = 2, nombre = "deco" },
+           new { categoria_id = 3, nombre = "varios" });
+
+            modelBuilder.Entity<Producto>().HasData(
+               new { id =1,nombre = "tv", precio=100.0,cantidad=200,id_categoria = 1},
+               new { id = 2, nombre = "radio", precio = 150.0, cantidad = 300, id_categoria = 3 },
+               new { id = 3, nombre = "silla", precio = 100.0, cantidad = 200, id_categoria = 2 });
+
+
+
+          
 
 
             modelBuilder.Ignore<Mercado>();

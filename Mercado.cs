@@ -63,7 +63,7 @@ namespace tp1
             return this.productoDao.getActivos();
         }
 
-        internal List<List<string>> getCompras()
+        public List<Compra> getCompras()
         {
             return this.compradao.getAll();
         }
@@ -78,6 +78,17 @@ namespace tp1
             return this.categoriaDao.getAll();
         }
 
+        internal bool modificarProductoCarro(int id_producto_carro, int cantidad)
+        {
+
+            return this.carroDao.update(id_producto_carro, cantidad);
+        }
+
+        public bool eliminarProductoCarro(int id_producto_carro)
+        {
+            return carroDao.delete(id_producto_carro);
+        }
+
         internal string mostrarCarro()
         {
             //return  this.usuario.MiCarro.toString(); 
@@ -86,8 +97,12 @@ namespace tp1
 
         internal int cantidadArticulos()
         {
-            //return this.usuario.MiCarro.cantidadArticulos();
-            return 0;
+            int cantidad = 0;
+            foreach(Producto_Carro pc in usuario.Micarro.producto_Carro)
+            {
+                cantidad += pc.cantidad;
+            }
+            return cantidad;
         }
 
         public bool agregarProducto (string nombre, double precio, int cantidad, int id_Categoria)
@@ -436,7 +451,8 @@ namespace tp1
         
         public bool modificarCompra ( int id, double total){
             bool flag = false;
-          //no se pueden modifcar las compras
+
+            carroDao.updateCompra(id, total);
             return flag;
             }
 

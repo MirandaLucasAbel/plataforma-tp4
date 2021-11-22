@@ -140,7 +140,7 @@ namespace Slc_Mercado
             //usuario.id = 0; //sacar esto
             //mercado.vaciarCarro(usuario.id);
             mercado.vaciarCarro();
-            textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
+            //textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
             MessageBox.Show("Carrito vaciado con exito");
         }
 
@@ -165,7 +165,7 @@ namespace Slc_Mercado
                 //mercado.agregarAlCarro(mercado.buscarProductoPorNombre(dataGridViewTextBoxColumn1.DataGridView.Rows.ToString()).id, dataGridViewTextBoxColumn3.DataGridView.FirstDisplayedScrollingRowIndex ,usuario.id);
                 mercado.agregarAlCarro(id_producto, cantidadProd);
 
-                textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
+                //textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
                 button1.Text = "Ver carrito (" + mercado.cantidadArticulos() + ")";
             }
             catch(Exception ex)

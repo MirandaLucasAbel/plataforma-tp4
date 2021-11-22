@@ -9,6 +9,7 @@ using config;
 
 using System.Data.SqlClient;
 using Clase7;
+using Microsoft.EntityFrameworkCore;
 
 public class CompraDAO1 : DataBaseConfig
 {
@@ -25,10 +26,25 @@ public class CompraDAO1 : DataBaseConfig
 
     }
 
-	public  List<List<string>> getAll()
+	public  List<Compra> getAll()
     {
+        List<Compra> compras = new List<Compra>();
+        try
+        {
+            this.contexto.compras.Load();
 
-		List<List<string>> compras = new List<List<string>>(); 
+
+            foreach(Compra compra in this.contexto.compras)
+            {
+                compras.Add(compra);
+            }
+
+           
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
 		
 		
 		
@@ -37,31 +53,7 @@ public class CompraDAO1 : DataBaseConfig
 
 
 
-	public bool insert(int id_usuario,Carro carro)
-    {
-
-        bool flag = true;
-
-        //int id_producto;
-       // int cantidad;
-		//double total;
-        try
-        {
-            
-           
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-            flag = false;
-        }
-        finally
-        {
-            conexion.Close();
-        }
-        return flag;
-    }
+	
 
 	public bool delete(int id)
     {
