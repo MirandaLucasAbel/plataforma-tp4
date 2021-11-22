@@ -13,21 +13,25 @@ namespace Clase7
     {
   
 
-        //ok
+        
         public DbSet<Usuario> usuarios { get; set; }
 
-        //ok
+        
         public DbSet<Categoria> categorias { get; set; }
 
-        //categorias no ok
+        
         public DbSet<Producto> producto { get; set; }
 
         public DbSet<Compra> compras { get; set; }
 
-        //diccionario no ok
-       // public DbSet<Carro> carro { get; set; }
+        public DbSet<Carro> carro { get; set; }
+
+        public DbSet<Producto_Carro> producto_carro { get; set; }
 
         public DbSet<Usuario_Compra> usuario_compra { get; set; }
+ 
+
+  
 
 
 

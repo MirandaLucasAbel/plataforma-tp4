@@ -26,7 +26,7 @@ namespace dao
 
             try
             {
-                this.contexto = new MyContext();
+        
                 this.contexto.categorias.Load();
 
                 foreach (Categoria C in this.contexto.categorias)
@@ -104,7 +104,7 @@ namespace dao
             Categoria categoria = new Categoria();
             try
             {
-                this.contexto = new MyContext();
+          
                 this.contexto.categorias.Load();
 
                 categoria = this.contexto.categorias.Where(C => (C.categoria_id == id )).FirstOrDefault();

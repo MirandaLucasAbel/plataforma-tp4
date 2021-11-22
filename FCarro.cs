@@ -11,9 +11,33 @@ namespace tp4EF
 {
     public partial class FCarro : Form
     {
-        public FCarro()
+        private Mercado mercado;
+        public FCarro(Mercado mercado)
         {
+            this.mercado = mercado;
             InitializeComponent();
+            label3.Text = mercado.getUsuario().nombre;
+            textBox1.Text = mercado.calcularCompra(mercado.getUsuario().id).ToString();
+
+
+            dataGridView1.Rows.Clear();
+            //agrego lo nuevo
+            int row = 0;
+            foreach (var producto_carro in mercado.getCarrito().producto_Carro)
+            {
+                List<string> data = new List<string>();
+                Producto producto = producto_carro.producto;
+                data.Add(producto.nombre);
+                data.Add(producto.precio.ToString());
+                data.Add(producto.cantidad.ToString());
+                double total = producto.cantidad * producto.precio;
+                data.Add(total.ToString());
+
+                dataGridView1.Rows.Add(data);
+                
+
+            }
+                
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -37,39 +61,11 @@ namespace tp4EF
         }
 
         private void button2_Click(object sender, EventArgs e)
-        {/*
-            int idUsuario = mercado.getUsuario().id;
-
-            string message = mercado.mostrarCarro();
-            string caption = "Desea confirmar la compra?";
-            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-            DialogResult result;
-
-            // Displays the MessageBox.
-            result = MessageBox.Show(message, caption, buttons);
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                try
-                {
-                    //mercado.comprar(usuario.id);
-
-                    if (mercado.comprar(0))
-                    {
-                        MessageBox.Show("Compra realizada con exito!");
-                        mercado.vaciarCarro(idUsuario);
-                        textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
-                        button1.Text = "Ver carrito";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Ocurrio un error al realizar la compra");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ocurrio un error al intentar realizar la compra");
-                }
-            }*/
+        {
+            bool flag = this.mercado.comprar();
+            string mensaje = (flag) ? "compra realizada!" : "ocurrio un error al intentar realizar la compra";
+            MessageBox.Show(mensaje);
+            
         }
     }
 }

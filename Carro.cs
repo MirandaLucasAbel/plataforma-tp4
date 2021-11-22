@@ -31,7 +31,7 @@ namespace tp1
         }
 
         public bool agregarProducto(int id_usuario, Producto id_producto, int cantidad) {
-            CarroDAO1 dao = new CarroDAO1();
+           // CarroDAO1 dao = new CarroDAO1();
            
             return true;
         }

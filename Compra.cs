@@ -9,7 +9,7 @@ namespace Slc_Mercado
     public class Compra
     {
         public int id { get; set; }
-        public Usuario comprador { get; set; }
+        
         //public Dictionary<Producto, int> productos;
         public double total { get; set; }
 
@@ -18,7 +18,7 @@ namespace Slc_Mercado
 
         public Compra() { }
         public Compra(int id,Usuario comprador, Dictionary<Producto,int> productosCarrito) {
-            this.comprador = comprador;
+          //  this.comprador = comprador;
            // this.productos = productosCarrito;
             foreach (KeyValuePair<Producto, int> kvp in productosCarrito)
             {
@@ -31,7 +31,7 @@ namespace Slc_Mercado
 
         public string toString()
         {
-            return "ID: "+ this.id + "- Usuario: " + this.comprador.ToString() + "- Productos: " + "PRODUCTOS" + "- Total: " + this.total;
+            return "ID: "+ this.id + "- Usuario: " +  "- Productos: " + "PRODUCTOS" + "- Total: " + this.total;
         }
 
         internal double calcularCompra()

@@ -41,6 +41,7 @@ namespace tp1
             this.compradao = new CompraDAO1(this.contexto);
             this.usuarioDao = new UsuarioDAO1(this.contexto);
             this.productoDao = new ProductoDAO1(this.contexto);
+            this.carroDao = new CarroDAO1(this.contexto);
             
 
             //foreach (Usuario us in usuarios) us.MiCarro = new Carro();
@@ -320,25 +321,18 @@ namespace tp1
 
            
 
-            public bool agregarAlCarro (int id_Producto, int cantidad, int id_Usuario){
+            public bool agregarAlCarro (int id_Producto, int cantidad){
              bool flag = true;
             try
             {
-                if (productoDao.get(id_Producto).cantidad >= cantidad) { 
-               // usuario.MiCarro.agregarProducto(id_Usuario, productoDao.get(id_Producto), cantidad);
-                } else
-                {
-                    flag = false;
-                }
+                int id_carro = this.usuario.id_carro;
+                carroDao.agregarAlCarrito(id_carro, id_Producto, cantidad);
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 flag = false;
             }
-            
-
-              
 
             return flag;
         }
@@ -367,18 +361,25 @@ namespace tp1
 
             return aux;
         }
-        public bool vaciarCarro (int id_Usuario){
-          // this.usuario.MiCarro = new Carro();
-            carroDao = new CarroDAO1();
-            bool flag = carroDao.delete(id_Usuario);
+        public bool vaciarCarro (){
+            bool flag = false;
+            try
+            {
+                int id_carro = usuario.id_carro;
+                flag = carroDao.vaciarCarrito(id_carro);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+         
             return flag;
             }
           
+            public bool comprar(){
 
-            public bool comprar(int id_Usuario){
-
-
-            bool flag = false; // compradao.insert(id_Usuario, this.usuario.MiCarro);
+            bool flag = false;
+            //compradao.insert();
 
                 return flag;
             }
@@ -472,7 +473,8 @@ namespace tp1
             this.usuario = usuarioDao.getUsuarioByDni(dni, pass);
             if (this.usuario != null && this.usuario.nombre!=null)
             {
-               if(esAdmin()) this.carro = new Carro(); //si no es admin no necesito iniciar un carrito
+                this.carro = carroDao.getByUserId(usuario.id);
+               if (esAdmin()) this.carro = new Carro(); //si no es admin no necesito iniciar un carrito
                 return true;
             }
             return false;
@@ -495,6 +497,11 @@ namespace tp1
         public Usuario getUsuario(int id)
         {
             return this.usuarioDao.getUserById(id);
+        }
+
+        public Carro getCarrito()
+        {
+            return this.usuario.Micarro;
         }
 
         public void cerrarSesion()

@@ -117,7 +117,16 @@ namespace dao
 
 				Usuario nuevo =new Usuario { dni = dni, nombre = nombre, mail = mail, password = password, apellido = apellido, tipo = tipo, cuil = cuilCuit,  usuario_compra = new List<Usuario_Compra>() };
 				this.contexto.usuarios.Add(nuevo);
+				
+				
 				this.contexto.SaveChanges();
+				Carro carro = new Carro { usuario_id = nuevo.id };
+				this.contexto.carro.Add(carro);
+				this.contexto.SaveChanges();
+				nuevo.id_carro = carro.id;
+				this.contexto.usuarios.Update(nuevo);
+				this.contexto.SaveChanges();
+
 				return true;
 
 

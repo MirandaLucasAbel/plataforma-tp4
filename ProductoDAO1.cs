@@ -29,7 +29,7 @@ namespace dao
             Producto producto = new Producto();
             try
             {
-                this.contexto = new MyContext();
+                
                 this.contexto.categorias.Load();
 
                 producto = this.contexto.producto.Where(P => (P.id == id)).FirstOrDefault();
@@ -54,7 +54,7 @@ namespace dao
         
             try
             {
-            this.contexto = new MyContext();
+            
             this.contexto.producto.Load();
 
             foreach (Producto P in this.contexto.producto)
@@ -86,14 +86,12 @@ namespace dao
                 //conseguir la categoria para insertar
                 this.contexto.categorias.Load();
                 this.contexto.producto.Load();
-                List<Categoria> categorias;
+              
                 CategoriaDAO1 daoCateg = new CategoriaDAO1(this.contexto);
-                categorias = daoCateg.getAll();
-
-                int id = this.contexto.producto.OrderByDescending(u => u.id).FirstOrDefault().id;
+                
                 Categoria categoria = this.contexto.categorias.Where(C => (C.categoria_id == id_categoria)).FirstOrDefault();
 
-                Producto producto = new Producto(++id,nombre,precio,cantidad,categoria);
+                Producto producto = new Producto(nombre,precio,cantidad,categoria);
                 this.contexto.producto.Add(producto);
                 this.contexto.SaveChanges();
                 return true;
@@ -105,21 +103,26 @@ namespace dao
             }
         }
 
+        //pasar a EF
         public bool update(int id, string nombreProd, double precioProd, int cantProd,int idCateg )
         {
-            bool salida = false;
-            foreach (Producto p in this.contexto.producto)
-                if (p.id == id)
-                {
-                    p.nombre = nombreProd;
-                    p.precio = precioProd;
-                    p.cantidad = cantProd;
-                    p.categoria.categoria_id = idCateg; //revisar
-                    salida = true;
-                }
-            if (salida)
+            try
+            {
+                Producto producto = this.contexto.producto.Where(P => (P.id == id)).FirstOrDefault();
+                producto.precio = precioProd;
+                producto.cantidad = cantProd;
+                producto.id_categoria = idCateg;
+                producto.nombre = nombreProd;
+                this.contexto.producto.Update(producto);
                 this.contexto.SaveChanges();
-            return salida;
+                return true;
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return false;
         }
 
         internal List<Producto> getByPrice(string query)

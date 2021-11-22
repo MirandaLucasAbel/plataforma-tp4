@@ -1,108 +1,82 @@
 ﻿using System;
 
-using System.IO;
 
-using System.Collections.Generic;
 using tp1;
 using config;
-using System.Data.SqlClient;
+
+using Clase7;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Slc_Mercado
 {
     class CarroDAO1 : DataBaseConfig
     {
-        
-        private string tabla = "carro";
 
-        public CarroDAO1()
+        private MyContext contexto;
+
+        public CarroDAO1(MyContext contexto)
         {
+            this.contexto = contexto;
         }
 
-        public List<Carro> getAll()
+        public Carro getByUserId(int userId)
         {
-            List<Carro> carro = new List<Carro>();
+            
+            this.contexto.carro.Load();
+            this.contexto.producto_carro.Load();
 
+            Carro carro = this.contexto.carro.Where(U => (U.usuario_id == userId)).FirstOrDefault();
+
+            return carro;
+        }
+
+        //pasar producto_carro desde mercado
+        public bool agregarAlCarrito(int id_carro, int id_producto, int cantidad)
+        {
+            bool flag = true;
             try
             {
-                string sql = $"use[ecommerce - plataforma]; select id from { tabla}; ";
-                SqlDataReader data = ejecutarQuery(sql);
-
-                //Carro carro = null;
-                int id;
-                //VER QUE OTROS CAMPOS TIENE
-
-                while (data.Read())
+                this.contexto.producto_carro.Load();
+                Producto_Carro producto_Carro = this.contexto.producto_carro.Where(C => (C.id_Carro == id_carro && C.id_Producto == id_producto)).FirstOrDefault();
+                if (producto_Carro == null)
                 {
-                    id = Int32.Parse(data.GetValue(0).ToString());
-
-                    //carro = new Carro(id);
-                   //carro.Add(carro);
+                    //el producto no existe, lo agrego 
+                    producto_Carro = new Producto_Carro { id_Producto = id_producto, cantidad = cantidad, id_Carro = id_carro }; //conseguir id de carro de mercado
+                    this.contexto.producto_carro.Add(producto_Carro);
+                    this.contexto.SaveChanges();
+                }
+                else 
+                {
+                    //el producto existe le actualizo la cantidad
+                    producto_Carro.cantidad = cantidad;
+                    this.contexto.producto_carro.Update(producto_Carro); //preguntar si la cantidad es 0 y eliminar registro
+                    this.contexto.SaveChanges();
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Archivo no encontrado");
-            }
-
-            finally
-            {
-                conexion.Close();
-            }
-
-            return carro;
-
-        }
-
-        public Carro getByUserId(int userId)
-        {
-            Carro carro = new Carro();
-            return carro;
-        }
-
-        public bool insert(int id_usuario, Producto id_producto, int cantidad)
-        {
-            bool flag = true;
-
-            try
-            {
-
-                string sql = $"use [ecommerce-plataforma]; insert into carro(id_usuario,id_producto,cantidad) values({id_usuario},{id_producto},{cantidad});";
-                SqlDataReader data = ejecutarQuery(sql);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
                 flag = false;
-            }
-            finally
-            {
-                conexion.Close();
             }
             return flag;
         }
 
-        public bool update(int id_usuario, Producto id_producto, int cantidad)
+        public bool update(int id_carro, int id_producto, int cantidad)
         {
   
             bool flag = true;
-
             try
             {
-
-                string sql = $"use [ecommerce-plataforma];update carro set cantidad = {cantidad} where id_usuario = {id_usuario} and id_producto = {id_producto}";
-                SqlDataReader data = ejecutarQuery(sql);
+                Producto_Carro producto_Carro = this.contexto.producto_carro.Where(C => (C.id_Carro == id_carro && C.id_Producto == id_producto)).FirstOrDefault();
+                producto_Carro.cantidad = cantidad;
+                this.contexto.producto_carro.Update(producto_Carro);
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 flag = false;
-            }
-            finally
-            {
-                conexion.Close();
             }
             return flag;
         }
@@ -110,11 +84,10 @@ namespace Slc_Mercado
         public bool delete(int id)
         {
             bool flag = true;
-
             try
             {
-                string sql = $"use [ecommerce-plataforma];delete from carro where id_usuario = {id}";
-                SqlDataReader data = ejecutarQuery(sql);
+                Producto_Carro pc = this.contexto.producto_carro.Where(pc => pc.id_Carro == id).FirstOrDefault();
+                this.contexto.producto_carro.Remove(pc);
 
             }
             catch (Exception ex)
@@ -124,32 +97,22 @@ namespace Slc_Mercado
             }
             finally
             {
-                conexion.Close();
+                
             }
             return flag;
         }
 
+        public bool vaciarCarrito(int id_carro)
+        {
+            this.contexto.producto_carro.RemoveRange(contexto.producto_carro.Where(PC => PC.id_Carro == id_carro));
+            this.contexto.SaveChanges();
+            return false;
+        }
+
         internal bool deleteProducto(object id_usuario, object id_producto)
         {
-            bool flag = true;
-
-            try
-            {
-
-                string sql = $"use [ecommerce-plataforma];delete from carro where id_usuario = {id_usuario} and id_producto = {id_producto}";
-                SqlDataReader data = ejecutarQuery(sql);
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                flag = false;
-            }
-            finally
-            {
-                conexion.Close();
-            }
-            return flag;
+            //borrar producto no deseado
+            return false;
         }
     }
 }
