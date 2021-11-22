@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Slc_Mercado;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +13,15 @@ namespace tp4EF
     public partial class FCarro : Form
     {
         private Mercado mercado;
+        private FUser hijoMain2;
         public FCarro(Mercado mercado)
         {
             this.mercado = mercado;
             InitializeComponent();
             label3.Text = mercado.getUsuario().nombre;
-            textBox1.Text = mercado.calcularCompra(mercado.getUsuario().id).ToString();
+            
 
+            double total_compra = 0;
 
             dataGridView1.Rows.Clear();
             //agrego lo nuevo
@@ -33,11 +36,13 @@ namespace tp4EF
                 double total = producto.cantidad * producto.precio;
                 data.Add(total.ToString());
 
-                dataGridView1.Rows.Add(data);
-                
+                dataGridView1.Rows.Add(data.ToArray());
 
-            }
+                total_compra += total;
                 
+            }
+
+            textBox1.Text = "$ "+ total_compra.ToString();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -57,7 +62,11 @@ namespace tp4EF
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            //volver a pantalla anterior //revisar
+            hijoMain2 = new FUser(mercado);
+            hijoMain2.MdiParent = this;
+            hijoMain2.Show();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)

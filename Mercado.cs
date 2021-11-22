@@ -379,7 +379,14 @@ namespace tp1
             public bool comprar(){
 
             bool flag = false;
-            //compradao.insert();
+            try
+            {
+                flag =  carroDao.comprar(usuario.Micarro);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
                 return flag;
             }

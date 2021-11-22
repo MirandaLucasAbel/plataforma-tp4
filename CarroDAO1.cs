@@ -7,6 +7,7 @@ using config;
 using Clase7;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Slc_Mercado
 {
@@ -113,6 +114,54 @@ namespace Slc_Mercado
         {
             //borrar producto no deseado
             return false;
+        }
+
+        public bool comprar(Carro carro)
+        {
+            double total = 0;
+            try
+            {
+                
+                this.contexto.producto.Load();
+                foreach (var producto_carro in carro.producto_Carro)
+                {
+                    //hay existencias de ese producto en la tabla de producto?
+                    Producto producto = this.contexto.producto.Where(P => (P.id == producto_carro.id_Producto)).FirstOrDefault();
+                    if(producto.cantidad >= producto_carro.cantidad)
+                    {
+                        total += producto_carro.cantidad * producto_carro.producto.precio;
+                        producto.cantidad = producto.cantidad - producto_carro.cantidad;
+                        this.contexto.producto.Update(producto);
+                    }
+                    else
+                    {
+                        //rollback;
+                        return false;
+                    }
+                   
+                }
+                this.contexto.SaveChanges();
+
+                vaciarCarrito(carro.id);
+                this.contexto.usuario_compra.Load();
+                List<Usuario_Compra> usuario_compra = new List<Usuario_Compra>();
+                foreach (Usuario_Compra UC in this.contexto.usuario_compra)
+                {
+                    usuario_compra.Add(UC);
+                }
+                 
+                Compra compra = new Compra { total = total, usuario_compra = usuario_compra };
+                this.contexto.compras.Add(compra);
+
+                return true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+
+                return false;
         }
     }
 }
