@@ -2,7 +2,7 @@
 
 namespace tp4EF.Migrations
 {
-    public partial class inicial : Migration
+    public partial class fixtest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,6 +20,19 @@ namespace tp4EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "compras",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    total = table.Column<double>(type: "float", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_compras", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "usuarios",
                 columns: table => new
                 {
@@ -31,7 +44,8 @@ namespace tp4EF.Migrations
                     mail = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    cuil = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    cuil = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    id_carro = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,17 +56,19 @@ namespace tp4EF.Migrations
                 name: "producto",
                 columns: table => new
                 {
-                    producto_id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     precio = table.Column<double>(type: "float", nullable: false),
-                    cantidad = table.Column<int>(type: "int", nullable: false)
+                    cantidad = table.Column<int>(type: "int", nullable: false),
+                    id_categoria = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_producto", x => x.producto_id);
+                    table.PrimaryKey("PK_producto", x => x.id);
                     table.ForeignKey(
-                        name: "FK_producto_categorias_producto_id",
-                        column: x => x.producto_id,
+                        name: "FK_producto_categorias_id_categoria",
+                        column: x => x.id_categoria,
                         principalTable: "categorias",
                         principalColumn: "categoria_id",
                         onDelete: ReferentialAction.Cascade);
@@ -64,83 +80,14 @@ namespace tp4EF.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    usuario_id = table.Column<int>(type: "int", nullable: false),
-                    usuarioid = table.Column<int>(type: "int", nullable: true)
+                    usuario_id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_carro", x => x.id);
                     table.ForeignKey(
-                        name: "FK_carro_usuarios_usuarioid",
-                        column: x => x.usuarioid,
-                        principalTable: "usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "compras",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    compradorid = table.Column<int>(type: "int", nullable: true),
-                    total = table.Column<double>(type: "float", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_compras", x => x.id);
-                    table.ForeignKey(
-                        name: "FK_compras_usuarios_compradorid",
-                        column: x => x.compradorid,
-                        principalTable: "usuarios",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "CarroProducto",
-                columns: table => new
-                {
-                    carritosid = table.Column<int>(type: "int", nullable: false),
-                    productossproducto_id = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CarroProducto", x => new { x.carritosid, x.productossproducto_id });
-                    table.ForeignKey(
-                        name: "FK_CarroProducto_carro_carritosid",
-                        column: x => x.carritosid,
-                        principalTable: "carro",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CarroProducto_producto_productossproducto_id",
-                        column: x => x.productossproducto_id,
-                        principalTable: "producto",
-                        principalColumn: "producto_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "usuario_carro",
-                columns: table => new
-                {
-                    id = table.Column<int>(type: "int", nullable: false),
-                    id_usuario = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_usuario_carro", x => new { x.id_usuario, x.id });
-                    table.ForeignKey(
-                        name: "FK_usuario_carro_carro_id",
-                        column: x => x.id,
-                        principalTable: "carro",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_usuario_carro_usuarios_id_usuario",
-                        column: x => x.id_usuario,
+                        name: "FK_carro_usuarios_usuario_id",
+                        column: x => x.usuario_id,
                         principalTable: "usuarios",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -151,14 +98,15 @@ namespace tp4EF.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(type: "int", nullable: false),
-                    id_usuario = table.Column<int>(type: "int", nullable: false)
+                    id_usuario = table.Column<int>(type: "int", nullable: false),
+                    id_categoria = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_usuario_compra", x => new { x.id_usuario, x.id });
                     table.ForeignKey(
-                        name: "FK_usuario_compra_compras_id",
-                        column: x => x.id,
+                        name: "FK_usuario_compra_compras_id_categoria",
+                        column: x => x.id_categoria,
                         principalTable: "compras",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
@@ -170,57 +118,82 @@ namespace tp4EF.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "producto_carro",
+                columns: table => new
+                {
+                    id_Producto_Carro = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    cantidad = table.Column<int>(type: "int", nullable: false),
+                    id_Carro = table.Column<int>(type: "int", nullable: false),
+                    id_Producto = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_producto_carro", x => x.id_Producto_Carro);
+                    table.ForeignKey(
+                        name: "FK_producto_carro_carro_id_Carro",
+                        column: x => x.id_Carro,
+                        principalTable: "carro",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_producto_carro_producto_id_Producto",
+                        column: x => x.id_Producto,
+                        principalTable: "producto",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_carro_usuarioid",
+                name: "IX_carro_usuario_id",
                 table: "carro",
-                column: "usuarioid");
+                column: "usuario_id",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CarroProducto_productossproducto_id",
-                table: "CarroProducto",
-                column: "productossproducto_id");
+                name: "IX_producto_id_categoria",
+                table: "producto",
+                column: "id_categoria");
 
             migrationBuilder.CreateIndex(
-                name: "IX_compras_compradorid",
-                table: "compras",
-                column: "compradorid");
+                name: "IX_producto_carro_id_Carro",
+                table: "producto_carro",
+                column: "id_Carro");
 
             migrationBuilder.CreateIndex(
-                name: "IX_usuario_carro_id",
-                table: "usuario_carro",
-                column: "id");
+                name: "IX_producto_carro_id_Producto",
+                table: "producto_carro",
+                column: "id_Producto");
 
             migrationBuilder.CreateIndex(
-                name: "IX_usuario_compra_id",
+                name: "IX_usuario_compra_id_categoria",
                 table: "usuario_compra",
-                column: "id");
+                column: "id_categoria");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CarroProducto");
-
-            migrationBuilder.DropTable(
-                name: "usuario_carro");
+                name: "producto_carro");
 
             migrationBuilder.DropTable(
                 name: "usuario_compra");
 
             migrationBuilder.DropTable(
-                name: "producto");
+                name: "carro");
 
             migrationBuilder.DropTable(
-                name: "carro");
+                name: "producto");
 
             migrationBuilder.DropTable(
                 name: "compras");
 
             migrationBuilder.DropTable(
-                name: "categorias");
+                name: "usuarios");
 
             migrationBuilder.DropTable(
-                name: "usuarios");
+                name: "categorias");
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Clase7
             modelBuilder.Entity<Producto>()
                 .HasOne(P => P.categoria)
                 .WithMany(C => C.productos)
-                .HasForeignKey(C => C.id);
+                .HasForeignKey(C => C.id_categoria);
             /*
             modelBuilder.Entity<Producto>()
                 .HasMany(P => P.carritos)

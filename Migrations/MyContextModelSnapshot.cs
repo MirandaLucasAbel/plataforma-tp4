@@ -69,7 +69,9 @@ namespace tp4EF.Migrations
             modelBuilder.Entity("tp1.Producto", b =>
                 {
                     b.Property<int>("id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("cantidad")
                         .HasColumnType("int");
@@ -84,6 +86,8 @@ namespace tp4EF.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("id");
+
+                    b.HasIndex("id_categoria");
 
                     b.ToTable("producto");
                 });
@@ -182,7 +186,7 @@ namespace tp4EF.Migrations
                 {
                     b.HasOne("tp1.Categoria", "categoria")
                         .WithMany("productos")
-                        .HasForeignKey("id")
+                        .HasForeignKey("id_categoria")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
