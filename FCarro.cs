@@ -14,6 +14,8 @@ namespace tp4EF
     {
         private Mercado mercado;
         private FUser hijoMain2;
+
+        double total_compra = 0;
         public FCarro(Mercado mercado)
         {
             this.mercado = mercado;
@@ -21,11 +23,15 @@ namespace tp4EF
             label3.Text = mercado.getUsuario().nombre;
             
 
-            double total_compra = 0;
+            
 
             dataGridView1.Rows.Clear();
             //agrego lo nuevo
             int row = 0;
+            if(mercado.getCarrito().producto_Carro != null)
+            {
+
+           
             foreach (var producto_carro in mercado.getCarrito().producto_Carro)
             {
                 List<string> data = new List<string>();
@@ -44,6 +50,11 @@ namespace tp4EF
             }
 
             textBox1.Text = "$ "+ total_compra.ToString();
+            }
+            else
+            {
+                MessageBox.Show("aun no agrego ningun producto");
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -68,13 +79,56 @@ namespace tp4EF
                     bool cantOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), out cantidad);
                     mercado.modificarProductoCarro(id_producto_carro, cantidad);
                     //MessageBox.Show("modificar");
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Refresh();
+
+                    /*actualizar grilla*/
+                    foreach (var producto_carro in mercado.getCarrito().producto_Carro)
+                    {
+                        List<string> data = new List<string>();
+                        Producto producto = producto_carro.producto;
+                        data.Add(producto_carro.id_Producto_Carro.ToString());
+                        data.Add(producto.nombre);
+                        data.Add(producto.precio.ToString());
+                        data.Add(producto_carro.cantidad.ToString());
+                        double total = producto_carro.cantidad * producto.precio;
+                        data.Add(total.ToString());
+
+                        dataGridView1.Rows.Add(data.ToArray());
+
+                        total_compra += total;
+
+                    }
+                    /*actualizar grilla*/
+                    MessageBox.Show("producto modificado");
 
                 }
                 if (e.ColumnIndex == 6)
                 {
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Refresh();
                     bool idOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), out id_producto_carro);
                     mercado.eliminarProductoCarro(id_producto_carro);
-                    MessageBox.Show("borrar");
+                    
+                    /*actualizar grilla*/
+                    foreach (var producto_carro in mercado.getCarrito().producto_Carro)
+                    {
+                        List<string> data = new List<string>();
+                        Producto producto = producto_carro.producto;
+                        data.Add(producto_carro.id_Producto_Carro.ToString());
+                        data.Add(producto.nombre);
+                        data.Add(producto.precio.ToString());
+                        data.Add(producto_carro.cantidad.ToString());
+                        double total = producto_carro.cantidad * producto.precio;
+                        data.Add(total.ToString());
+
+                        dataGridView1.Rows.Add(data.ToArray());
+
+                        total_compra += total;
+
+                    }
+                    /*actualizar grilla*/
+                    MessageBox.Show("producto eliminado");
 
                 }
             }
