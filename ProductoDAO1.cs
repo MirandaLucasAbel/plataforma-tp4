@@ -4,7 +4,7 @@ using System.IO;
 
 using System.Collections.Generic;
 using tp1;
-using config;
+
 
 using Clase7;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace dao
 {
-    class ProductoDAO1 : DataBaseConfig
+    class ProductoDAO1
     {
 
         
@@ -41,7 +41,7 @@ namespace dao
             }
             finally
             {
-                conexion.Close();
+             
             }
             return producto;
         }
@@ -68,7 +68,7 @@ namespace dao
             }
             finally
             {
-                conexion.Close();
+               
             }
 
             return productos;

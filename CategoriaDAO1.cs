@@ -4,7 +4,7 @@ using System.IO;
 
 using System.Collections.Generic;
 using tp1;
-using config;
+
 using System.Data.SqlClient;
 using Clase7;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +12,7 @@ using System.Linq;
 
 namespace dao
 {
-    class CategoriaDAO1 : DataBaseConfig
+    class CategoriaDAO1
     {
         private MyContext contexto;
 
@@ -39,7 +39,7 @@ namespace dao
             }
             finally
             {
-                conexion.Close();
+               
             }
 
             return categorias;
@@ -51,8 +51,12 @@ namespace dao
             try
             {
                 Categoria categoria = new Categoria(nombre);
-                this.contexto.categorias.Add(categoria);
+                contexto.categorias.Load();
+                List<Categoria> categorias = this.contexto.categorias.ToList();
+                categorias.Add(categoria);
                 this.contexto.SaveChanges();
+               // this.contexto.categorias.Add(categoria);
+               // this.contexto.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -116,7 +120,7 @@ namespace dao
             }
             finally
             {
-                conexion.Close();
+               
             }
             return categoria;
         }

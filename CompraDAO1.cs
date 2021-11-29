@@ -5,13 +5,13 @@ using System.IO;
 
 using System.Collections.Generic;
 using tp1;
-using config;
 
-using System.Data.SqlClient;
+
+
 using Clase7;
 using Microsoft.EntityFrameworkCore;
 
-public class CompraDAO1 : DataBaseConfig
+public class CompraDAO1
 {
     private MyContext contexto;
     public CompraDAO1(MyContext contexto)
@@ -57,25 +57,23 @@ public class CompraDAO1 : DataBaseConfig
 
 	public bool delete(int id)
     {
-        bool flag = true;
-
         try
         {
-
-            string sql = $"use[ecommerce-plataforma]; delete from {1} where id = {id}";
-            SqlDataReader data = ejecutarQuery(sql);
-
+            bool salida = false;
+            foreach (Compra c in this.contexto.compras)
+                if (c.id == id)
+                {
+                    this.contexto.compras.Remove(c);
+                    salida = true;
+                }
+            if (salida)
+                this.contexto.SaveChanges();
+            return salida;
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            Console.WriteLine(ex.Message);
-            flag = false;
+            return false;
         }
-        finally
-        {
-            conexion.Close();
-        }
-        return flag;
     }
 
 

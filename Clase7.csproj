@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DatabaseConfig.cs" />
     <Compile Remove="DNI.cs" />
     <Compile Remove="Domicilio.cs" />
     <Compile Remove="EmpresaDAO.cs" />

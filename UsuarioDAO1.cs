@@ -4,7 +4,7 @@
 
 using System.Collections.Generic;
 using tp1;
-using config;
+
 
 
 using Clase7; //revisar!!! revisar revisar
@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace dao
 {
-	public class UsuarioDAO1 : DataBaseConfig
+	public class UsuarioDAO1 
 	{
 	
 
@@ -45,7 +45,7 @@ namespace dao
 			}
 			finally
 			{
-				conexion.Close();
+				
 			}
 
 
@@ -62,8 +62,17 @@ namespace dao
 			Usuario usuario = new Usuario();
 			try
             {
-				
-				
+				/* parcial
+				 * 
+				 */
+				List<Usuario> uss = new List<Usuario>();
+				Console.WriteLine("--------------");
+				foreach (Usuario us in this.contexto.usuarios)
+                {
+					Console.WriteLine(us.nombre);
+					uss.Add(us);
+                }
+				Console.WriteLine("--------------");
 				this.contexto.usuarios.Load();
 
 				usuario = this.contexto.usuarios.Where(U =>( U.dni==dni && U.password==password)).FirstOrDefault();
@@ -76,7 +85,7 @@ namespace dao
             }
             finally
             {
-				conexion.Close();
+				
 			}
 			
 			
@@ -103,7 +112,7 @@ namespace dao
 			}
             finally
             {
-				conexion.Close();
+				
 			}
 			
 			return usuarios;

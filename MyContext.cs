@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Slc_Mercado;
 using tp1;
 using dao;
-using config;
+
 
 namespace Clase7
 {
@@ -170,7 +170,7 @@ namespace Clase7
             modelBuilder.Ignore<CategoriaDAO1>();
             modelBuilder.Ignore<ProductoDAO1>();
             modelBuilder.Ignore<UsuarioDAO1>();
-            modelBuilder.Ignore<DataBaseConfig>();
+          
             modelBuilder.Ignore<Pais>();
             modelBuilder.Ignore<UsuarioPais>();
 

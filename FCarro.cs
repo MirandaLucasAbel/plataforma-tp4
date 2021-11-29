@@ -16,6 +16,7 @@ namespace tp4EF
         private FUser hijoMain2;
 
         double total_compra = 0;
+        private List<string> data = new List<string>();
         public FCarro(Mercado mercado)
         {
             this.mercado = mercado;
@@ -31,10 +32,10 @@ namespace tp4EF
             if(mercado.getCarrito().producto_Carro != null)
             {
 
-           
-            foreach (var producto_carro in mercado.getCarrito().producto_Carro)
+                
+                foreach (var producto_carro in mercado.getCarrito().producto_Carro)
             {
-                List<string> data = new List<string>();
+                
                 Producto producto = producto_carro.producto;
                 data.Add(producto_carro.id_Producto_Carro.ToString());
                 data.Add(producto.nombre);
@@ -44,12 +45,14 @@ namespace tp4EF
                 data.Add(total.ToString());
 
                 dataGridView1.Rows.Add(data.ToArray());
-
+                  
                 total_compra += total;
                 
             }
 
-            textBox1.Text = "$ "+ total_compra.ToString();
+                dataGridView1.DataSource = data;
+
+                textBox1.Text = "$ "+ total_compra.ToString();
             }
             else
             {
@@ -57,6 +60,10 @@ namespace tp4EF
             }
         }
 
+        private void actualizarGrilla()
+        {
+
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 

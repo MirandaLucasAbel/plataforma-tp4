@@ -2,7 +2,7 @@
 
 
 using tp1;
-using config;
+
 
 using Clase7;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace Slc_Mercado
 {
-    class CarroDAO1 : DataBaseConfig
+    class CarroDAO1 
     {
 
         private MyContext contexto;
@@ -84,7 +84,7 @@ namespace Slc_Mercado
            
 
                 Producto_Carro producto_Carro = this.contexto.producto_carro.Where(C => (C.id_Producto_Carro == id )).FirstOrDefault();
-
+              
                 Producto producto = this.contexto.producto.Where(P => (P.id == producto_Carro.id_Producto)).FirstOrDefault();
                 if (producto.cantidad >= producto_Carro.cantidad)
                 {
