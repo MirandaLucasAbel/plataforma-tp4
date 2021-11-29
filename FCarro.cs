@@ -35,8 +35,8 @@ namespace tp4EF
                 
                 foreach (var producto_carro in mercado.getCarrito().producto_Carro)
             {
-                
-                Producto producto = producto_carro.producto;
+                    data = new List<string>();
+                    Producto producto = producto_carro.producto;
                 data.Add(producto_carro.id_Producto_Carro.ToString());
                 data.Add(producto.nombre);
                 data.Add(producto.precio.ToString());
@@ -50,7 +50,7 @@ namespace tp4EF
                 
             }
 
-                dataGridView1.DataSource = data;
+                //dataGridView1.DataSource = data;
 
                 textBox1.Text = "$ "+ total_compra.ToString();
             }
@@ -60,19 +60,9 @@ namespace tp4EF
             }
         }
 
-        private void actualizarGrilla()
-        {
+       
 
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -86,8 +76,8 @@ namespace tp4EF
                     bool cantOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), out cantidad);
                     mercado.modificarProductoCarro(id_producto_carro, cantidad);
                     //MessageBox.Show("modificar");
-                    dataGridView1.Rows.Clear();
-                    dataGridView1.Refresh();
+                   // dataGridView1.Rows.Clear();
+                   // dataGridView1.Refresh();
 
                     /*actualizar grilla*/
                     foreach (var producto_carro in mercado.getCarrito().producto_Carro)
@@ -106,8 +96,11 @@ namespace tp4EF
                         total_compra += total;
 
                     }
+                     
                     /*actualizar grilla*/
+
                     MessageBox.Show("producto modificado");
+
 
                 }
                 if (e.ColumnIndex == 6)
@@ -134,6 +127,7 @@ namespace tp4EF
                         total_compra += total;
 
                     }
+                   
                     /*actualizar grilla*/
                     MessageBox.Show("producto eliminado");
 
