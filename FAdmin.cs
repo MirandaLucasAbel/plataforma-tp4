@@ -99,6 +99,8 @@ namespace Slc_Mercado
 
             refreshData(datos, columnas);
 
+            tabla.Columns["id"].ReadOnly = true;
+
         }
 
         private void recargarDatosPorTabla(string tabla1)
@@ -114,6 +116,7 @@ namespace Slc_Mercado
                 columnas.Add("Password");
                 columnas.Add("Tipo");
                 columnas.Add("Cuil-Cuit");
+                
                 foreach (Usuario user in usuarios)
                 {
                     datos.Add(new List<string>(new string[] { user.id.ToString(), user.dni.ToString(), user.nombre.ToString(), user.apellido.ToString(), user.mail.ToString(), user.password.ToString(), user.tipo.ToString(), user.cuil.ToString(), }));
@@ -160,6 +163,8 @@ namespace Slc_Mercado
                     datos.Add(data); 
                 }
             }
+
+           
         }
 
         private void agregarObj(object sender, EventArgs e)
@@ -360,7 +365,17 @@ namespace Slc_Mercado
             tablaDatos.SelectedIndex = tablaDatos.FindStringExact(tabla1);
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.mercado.cerrarSesion();
+            this.Close();
+   
+        }
     }
 }
 
