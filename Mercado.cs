@@ -548,6 +548,11 @@ namespace tp1
             return this.usuarioDao.getUserById(id);
         }
 
+        public Usuario getUsuarioByCompra(Compra compra)
+        {
+            return this.usuarioDao.getByCompra(compra);
+        }
+
         public Carro getCarrito()
         {
             return this.usuario.Micarro;

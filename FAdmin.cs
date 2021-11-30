@@ -104,6 +104,15 @@ namespace Slc_Mercado
 
             tabla.Columns["id"].ReadOnly = true;
 
+            if (tabla.Columns["ID_USUARIO"] != null){
+                tabla.Columns["ID_USUARIO"].ReadOnly = true;
+            }
+
+            if (tabla.Columns["usuario"] != null)
+            {
+                tabla.Columns["usuario"].ReadOnly = true;
+            }
+
         }
 
         private void recargarDatosPorTabla(string tabla1)
@@ -156,15 +165,21 @@ namespace Slc_Mercado
             {
                 columnas.Clear();
                 columnas.Add("ID");
+                columnas.Add("ID_USUARIO");
+                columnas.Add("usuario");
                 columnas.Add("total");
 
                 foreach (Compra compra in compras)
                 {
+                    Usuario us = mercado.getUsuarioByCompra(compra);
                     List<string> data = new List<string>();
                     data.Add(compra.id.ToString());
+                    data.Add(us.id.ToString());
+                    data.Add(us.nombre+" "+us.apellido);
                     data.Add(compra.total.ToString());
                     datos.Add(data); 
                 }
+               
             }
 
            

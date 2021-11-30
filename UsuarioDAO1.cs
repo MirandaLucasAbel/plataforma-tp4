@@ -11,6 +11,7 @@ using Clase7; //revisar!!! revisar revisar
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Windows.Forms;
+using Slc_Mercado;
 
 namespace dao
 {
@@ -194,6 +195,20 @@ namespace dao
 			//MessageBox.Show(contexto.usuarios.Where(U => U.id == 29).FirstOrDefault().nombre);
 		}
 
-	}
+        public Usuario getByCompra(Compra compra)
+        {
+			this.contexto.compras.Load();
+			this.contexto.usuario_compra.Load();
+
+
+			Usuario_Compra usuario_compra = this.contexto.usuario_compra.Where(UC => (UC.id_compra == compra.id)).FirstOrDefault();
+
+			Usuario usuario = this.contexto.usuarios.Where(U => U.id == usuario_compra.id_usuario).FirstOrDefault();
+
+			return usuario;
+
+
+		}
+    }
 
 }

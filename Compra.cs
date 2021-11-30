@@ -39,6 +39,7 @@ namespace Slc_Mercado
             double suma = 1;
 
             return suma;
+
         }
 
         public string listaDeProductos()
