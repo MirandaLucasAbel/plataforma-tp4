@@ -329,7 +329,7 @@ namespace Slc_Mercado
                     {
                         double total;
                         int.TryParse(tabla.Rows[e.RowIndex].Cells[0].Value.ToString(), out id);
-                        double.TryParse(tabla.Rows[e.RowIndex].Cells[1].Value.ToString(), out total);
+                        double.TryParse(tabla.Rows[e.RowIndex].Cells[3].Value.ToString(), out total);
                         Console.WriteLine("editando compra");
                         mercado.modificarCompra(id, total);
                     }
