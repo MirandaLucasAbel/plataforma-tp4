@@ -72,9 +72,16 @@ namespace Slc_Mercado
                 }
             }*/
 
-            this.Close();
-            FCarro carroCompra = new FCarro(this.mercado);
-            carroCompra.Show();
+            if(this.mercado.cantidadArticulos() != 0 )
+            {
+                this.Close();
+                FCarro carroCompra = new FCarro(this.mercado);
+                carroCompra.Show();
+            }
+            else
+            {
+                MessageBox.Show("Aun no agregaste productos al carrito!");
+            }
 
         }
 

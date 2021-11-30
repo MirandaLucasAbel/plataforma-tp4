@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using dao;
 using Clase7;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace tp1
 {
@@ -169,8 +171,8 @@ namespace tp1
         public bool agregarUsuario (int dni, string nombre, string apellido, string mail, string password, string cuit_Cuil, string tipo)
             {
                 
-            // int erroresDeIngreso = verificarIngresoUsuario(idActual, dni, nombre, apellido, mail, password, cuit_Cuil, tipo); //descomentar
-            int erroresDeIngreso = 0;
+            int erroresDeIngreso = verificarIngresoUsuario( dni, nombre, apellido, mail, password, cuit_Cuil, tipo); //descomentar
+            //int erroresDeIngreso = 0;
                
                 if (erroresDeIngreso > 0)
                 {
@@ -203,72 +205,81 @@ namespace tp1
             return true;
         }
 
-        private int verificarIngresoUsuario(int id, int dni, string nombre, string apellido, string mail, string password, string cuit_Cuil, string tipo)
+        private int verificarIngresoUsuario( int dni, string nombre, string apellido, string mail, string password, string cuit_Cuil, string tipo)
         {
             //revisar
             int contadorErrores = 0;
-            foreach (Usuario us in usuarios)
+           // foreach (Usuario us in usuarios)
             {
-                if (us.id == id)
+                //if (us.id == id)
                 {
-                    if (cuit_Cuil.Length == 11)
+                    if (tipo.Trim().Length == 11)
                     {
-                        us.cuil = cuit_Cuil;
+                        //usuario.cuil = cuit_Cuil;
                     }
                     else
                     {
                         Console.WriteLine("El Cuit/Cuil ingresado no es correcto, recuerde que debe tener 11 digitos");
+                        MessageBox.Show("El Cuit/Cuil ingresado no es correcto, recuerde que debe tener 11 digitos");
                         contadorErrores += 1;
                     }
 
-                    if (Math.Log10(dni) + 1 == 8)
+                    if (dni.ToString().Trim().Length == 8)
                     {
-                        us.dni = dni;
+                        //usuario.dni = dni;
                     }
                     else
                     {
                         Console.WriteLine("El Dni ingresado no es correcto, recuerde que debe tener 8 digitos");
+                        MessageBox.Show("El Dni ingresado no es correcto, recuerde que debe tener 8 digitos");
                         contadorErrores += 1;
                     }
 
                     if (!(string.IsNullOrEmpty(nombre)))
                     {
-                        us.nombre = nombre;
+                        //usuario.nombre = nombre;
                     }
                     else
                     {
                         Console.WriteLine("El Nombre ingresado no puede estar vacio");
+                        MessageBox.Show("El Nombre ingresado no puede estar vacio");
                         contadorErrores += 1;
                     }
 
                     if (!(string.IsNullOrEmpty(apellido)))
                     {
-                        us.apellido = apellido;
+                        //usuario.apellido = apellido;
                     }
                     else
                     {
                         Console.WriteLine("El Apellido ingresado no puede estar vacio");
+                        MessageBox.Show("El Apellido ingresado no puede estar vacio"); 
                         contadorErrores += 1;
-                        break;
+                        
                     }
 
-                    if (!(string.IsNullOrEmpty(mail)))
+                    Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+                    Match match = regex.Match(password);
+
+                    if (!(string.IsNullOrEmpty(password)) && match.Success)
                     {
-                        us.mail = mail;
+                  //      usuario.mail = mail;
                     }
                     else
                     {
                         Console.WriteLine("El Mail ingresado no es correcto");
+                        MessageBox.Show("El Mail ingresado no es correcto");
                         contadorErrores += 1;
                     }
 
-                    if (!(string.IsNullOrEmpty(password)) && password.Length > 6)
+                    if (!(string.IsNullOrEmpty(mail)) && mail.Length > 3)
                     {
-                        us.password = password;
+                        //usuario.password = password;
                     }
                     else
                     {
-                        Console.WriteLine("El Password ingresado no es correcto, recuerde que debe tener 6 digitos");
+                        Console.WriteLine("El Password ingresado no es correcto, recuerde que debe tener 4 digitos minimo");
+                        MessageBox.Show("El Password ingresado no es correcto,  recuerde que debe tener 4 digitos minimo");
                         contadorErrores += 1;
                     }
                 }

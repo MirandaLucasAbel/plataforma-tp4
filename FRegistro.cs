@@ -37,12 +37,12 @@ namespace Slc_Mercado
         {
             //leer archivo de usuarios //TODO encriptar en algun momento
 
-           
+            bool flag = false;
 
             //agregar usuario al array temporal
             int id = 0;
-            int dni;
-            int.TryParse(cuit.Text, out dni);
+            int dniOut;
+            int.TryParse(dni.Text, out dniOut);
             string nombre = nombre_.Text;
             string apellido = apellido_.Text;
             string mail = mail_.Text;
@@ -53,7 +53,7 @@ namespace Slc_Mercado
             {
 
                 
-                mercado.agregarUsuario(dni, nombre, apellido, password, mail, tipoUsuario.SelectedItem.ToString(), cuit.Text);
+                flag = mercado.agregarUsuario(dniOut, nombre, apellido, password, mail, tipoUsuario.SelectedItem.ToString(), cuit.Text);
                 
             }
            
@@ -61,12 +61,19 @@ namespace Slc_Mercado
 
             //guardar
 
-           
 
-            MessageBox.Show("Usuario registrado con exito");
-            this.Close();
-            FPrincipal menuPrincipal = new FPrincipal();
-            menuPrincipal.Show();
+            if (flag)
+            {
+                MessageBox.Show("Usuario registrado con exito");
+                this.Close();
+                FPrincipal menuPrincipal = new FPrincipal();
+                menuPrincipal.Show();
+            }
+            else
+            {
+                MessageBox.Show("ocurrio un error al intentar registrar el usuario");
+            }
+            
         }
 
         private bool validar()
