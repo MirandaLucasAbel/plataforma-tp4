@@ -40,7 +40,7 @@ namespace Slc_Mercado
             // 
             // login
             // 
-            this.login.Location = new System.Drawing.Point(209, 359);
+            this.login.Location = new System.Drawing.Point(316, 359);
             this.login.Margin = new System.Windows.Forms.Padding(2);
             this.login.Name = "login";
             this.login.Size = new System.Drawing.Size(111, 46);
@@ -67,7 +67,7 @@ namespace Slc_Mercado
             // 
             // registro
             // 
-            this.registro.Location = new System.Drawing.Point(374, 359);
+            this.registro.Location = new System.Drawing.Point(448, 359);
             this.registro.Margin = new System.Windows.Forms.Padding(2);
             this.registro.Name = "registro";
             this.registro.Size = new System.Drawing.Size(111, 46);
@@ -78,7 +78,7 @@ namespace Slc_Mercado
             // 
             // configurar
             // 
-            this.configurar.Location = new System.Drawing.Point(538, 359);
+            this.configurar.Location = new System.Drawing.Point(784, 359);
             this.configurar.Margin = new System.Windows.Forms.Padding(2);
             this.configurar.Name = "configurar";
             this.configurar.Size = new System.Drawing.Size(111, 46);
