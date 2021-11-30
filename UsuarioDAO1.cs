@@ -108,7 +108,7 @@ namespace dao
 			return usuarios;
 		}
 
-		public bool insert(string nombre,string apellido, string password, int dni,string mail,string tipo,string cuilCuit)
+		public bool insert(string nombre,string apellido, string mail, int dni,string password, string cuilCuit, string tipo)
         {
 			
 			try

@@ -100,7 +100,7 @@ namespace tp4EF
                         total_compra += total;
 
                     }
-                     
+                    textBox1.Text = "$ " + total_compra.ToString();
                     /*actualizar grilla*/
 
                     MessageBox.Show("producto modificado");
@@ -134,7 +134,7 @@ namespace tp4EF
                         total_compra += total;
 
                     }
-                   
+                    textBox1.Text = "$ " + total_compra.ToString();
                     /*actualizar grilla*/
                     MessageBox.Show("producto eliminado");
 
