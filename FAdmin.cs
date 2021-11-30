@@ -23,13 +23,16 @@ namespace Slc_Mercado
         public List<Usuario> usuarios;
         public List<Compra>  compras;
 
+        private FPrincipal fPrincipal;
+
         public Mercado mercado;
 
 
-        public FAdmin(Mercado mercado)
+        public FAdmin(Mercado mercado,FPrincipal fPrincipal)
         {
             this.mercado = mercado;
 
+            this.fPrincipal = fPrincipal;
             // TODO llamarlos desde mercado no desde formulario 
             productos = mercado.getProductos();
             categorias = mercado.getCategorias();
@@ -374,7 +377,7 @@ namespace Slc_Mercado
         {
             //this.mercado.cerrarSesion();
             this.Close();
-            FLogin fLogin = new FLogin(new string[1]);
+            FLogin fLogin = new FLogin(new string[1],this.fPrincipal);
             fLogin.Show();
 
    

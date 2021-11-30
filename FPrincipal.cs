@@ -25,7 +25,7 @@ namespace Slc_Mercado
             InitializeComponent();
             logued = false;
             // LOGIN
-            hijoLogin = new FLogin(new string[1]);
+            hijoLogin = new FLogin(new string[1],this);
             hijoLogin.MdiParent = this;
             hijoLogin.TrasfEvento += TransfDelegado;
             hijoLogin.Show();
@@ -43,13 +43,13 @@ namespace Slc_Mercado
 
                 if (mercado.getUsuario().nombre !=null && mercado.esAdmin())
                 {
-                    hijoMain = new FAdmin(mercado);
+                    hijoMain = new FAdmin(mercado,this);
                     hijoMain.MdiParent = this;
                     hijoMain.Show();
                 }
                 else
                 {
-                    hijoMain2 = new FUser(mercado);
+                    hijoMain2 = new FUser(mercado, this);
                     hijoMain2.MdiParent = this;
                     hijoMain2.Show();
                 }

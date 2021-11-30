@@ -20,11 +20,13 @@ namespace Slc_Mercado
         public delegate void TransfDelegado(Mercado mercado);
         public TransfDelegado TrasfEvento;
         private Mercado mercado = new Mercado();
-        public FLogin(string[] args)
+        private FPrincipal fprincipal;
+        public FLogin(string[] args,FPrincipal fPrincipal)
         {
             logued = false;
             InitializeComponent();
             argumentos = args;
+            this.fprincipal = fPrincipal;
         }
         private void login_Click(object sender, EventArgs e)
         {
@@ -77,7 +79,9 @@ namespace Slc_Mercado
 
         private void button1_Click(object sender, EventArgs e)
         {
+            this.fprincipal.Close();
             this.Close();
+            fprincipal.Close();
         }
     }
 }

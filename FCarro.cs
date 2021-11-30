@@ -17,7 +17,9 @@ namespace tp4EF
 
         double total_compra = 0;
         private List<string> data = new List<string>();
-        public FCarro(Mercado mercado)
+
+        private FPrincipal frpincipal;
+        public FCarro(Mercado mercado,FPrincipal frpincipal)
         {
             this.mercado = mercado;
             InitializeComponent();
@@ -155,7 +157,7 @@ namespace tp4EF
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-            FUser Fusuario = new FUser(this.mercado);
+            FUser Fusuario = new FUser(this.mercado,frpincipal);
             Fusuario.Show();
         }
 
@@ -165,7 +167,7 @@ namespace tp4EF
             string mensaje = (flag) ? "compra realizada!" : "ocurrio un error al intentar realizar la compra";
             MessageBox.Show(mensaje);
             this.Close();
-            FUser Fusuario = new FUser(this.mercado);
+            FUser Fusuario = new FUser(this.mercado, frpincipal);
             Fusuario.Show();
 
         }
@@ -181,7 +183,7 @@ namespace tp4EF
             mercado.vaciarCarro();
             this.Close();
             MessageBox.Show("se vacio el carrito!");
-            FUser Fusuario = new FUser(this.mercado);
+            FUser Fusuario = new FUser(this.mercado, frpincipal);
             Fusuario.Show();
         }
     }

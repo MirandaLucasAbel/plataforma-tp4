@@ -19,11 +19,12 @@ namespace Slc_Mercado
         List<List<string>> datos;
         public List<Producto> productos;
         private Mercado mercado;
+        private FPrincipal frpincipal;
 
 
-        public FUser(Mercado mercado)
+        public FUser(Mercado mercado, FPrincipal frpincipal)
         {
-
+            this.frpincipal = frpincipal;
             productos = mercado.getProductos(); //new ProductoDAO1().getAll();
             this.mercado = mercado;
             InitializeComponent();
@@ -75,7 +76,7 @@ namespace Slc_Mercado
             if( this.mercado.cantidadArticulos() != 0 )
             {
                 this.Close();
-                FCarro carroCompra = new FCarro(this.mercado);
+                FCarro carroCompra = new FCarro(this.mercado, frpincipal);
                 carroCompra.Show();
             }
             else
@@ -196,6 +197,8 @@ namespace Slc_Mercado
         {
             this.mercado.cerrarSesion();
             this.Close();
+            FLogin flogin = new FLogin(new string[1], frpincipal);
+            flogin.Show();
 
         }
     }
