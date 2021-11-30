@@ -372,8 +372,11 @@ namespace Slc_Mercado
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.mercado.cerrarSesion();
+            //this.mercado.cerrarSesion();
             this.Close();
+            FLogin fLogin = new FLogin(new string[1]);
+            fLogin.Show();
+
    
         }
     }
