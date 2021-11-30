@@ -24,7 +24,7 @@ namespace tp4EF
             this.mercado = mercado;
             InitializeComponent();
             label3.Text = mercado.getUsuario().nombre;
-            
+            this.frpincipal = frpincipal;
 
             
 
@@ -181,8 +181,9 @@ namespace tp4EF
         private void button4_Click(object sender, EventArgs e)
         {
             mercado.vaciarCarro();
-            this.Close();
+           
             MessageBox.Show("se vacio el carrito!");
+            this.Close();
             FUser Fusuario = new FUser(this.mercado, frpincipal);
             Fusuario.Show();
         }

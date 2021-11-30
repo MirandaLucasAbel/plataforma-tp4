@@ -101,12 +101,16 @@ namespace tp1
         {
             try
             {
-                int cantidad = 0;
-                foreach (Producto_Carro pc in usuario.Micarro.producto_Carro)
+                if (usuario.Micarro.producto_Carro != null)
                 {
-                    cantidad += pc.cantidad;
+                    int cantidad = 0;
+                    foreach (Producto_Carro pc in usuario.Micarro.producto_Carro)
+                    {
+                        cantidad += pc.cantidad;
+                    }
+                    return cantidad;
                 }
-                return cantidad;
+               
             }
             catch(Exception ex)
             {

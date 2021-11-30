@@ -31,6 +31,9 @@ namespace Slc_Mercado
             //argumentos = args;   VERIFICAR
             label2.Text = mercado.getUsuario().nombre;
             datos = new List<List<string>>();
+            int cantidad_articulos = mercado.cantidadArticulos();
+
+            button1.Text = (cantidad_articulos>0) ? "Ver carrito (" + mercado.cantidadArticulos() + ")" : "ver carrito";
 
             cargarProductos();
             refreshData(datos);
@@ -174,7 +177,9 @@ namespace Slc_Mercado
                 mercado.agregarAlCarro(id_producto, cantidadProd);
 
                 //textBox1.Text = mercado.calcularCompra(idUsuario).ToString();
-                button1.Text = "Ver carrito (" + mercado.cantidadArticulos() + ")";
+                int cantidad_articulos = mercado.cantidadArticulos();
+
+                button1.Text = (cantidad_articulos > 0) ? "Ver carrito (" + mercado.cantidadArticulos() + ")" : "ver carrito";
             }
             catch(Exception ex)
             {
@@ -195,10 +200,13 @@ namespace Slc_Mercado
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            
             this.mercado.cerrarSesion();
             this.Close();
-            FLogin flogin = new FLogin(new string[1], frpincipal);
-            flogin.Show();
+            frpincipal.Close();
+
+            //FLogin flogin = new FLogin(new string[1], frpincipal);
+            //flogin.Show();
 
         }
     }
