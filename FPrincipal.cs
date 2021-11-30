@@ -35,7 +35,7 @@ namespace Slc_Mercado
         }
         private void TransfDelegado(Mercado mercado)
         {
-            this.mercado = mercado;
+           this.mercado = mercado;
             if (mercado.getUsuario() != null && mercado.getUsuario().nombre != "")
             {
                 MessageBox.Show("Log-in correcto, Usuario: " + mercado.getUsuario().nombre);
@@ -54,6 +54,7 @@ namespace Slc_Mercado
                     hijoMain2.Show();
                 }
             }
+          
         }
 
         private void FPrincipal_Load(object sender, EventArgs e)

@@ -32,7 +32,7 @@ namespace tp4EF
             if(mercado.getCarrito().producto_Carro != null)
             {
 
-                
+                total_compra = 0;
                 foreach (var producto_carro in mercado.getCarrito().producto_Carro)
             {
                     data = new List<string>();
@@ -81,7 +81,7 @@ namespace tp4EF
                     // dataGridView1.Refresh();
 
                     /*actualizar grilla*/
-
+                    total_compra = 0;
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     foreach (var producto_carro in mercado.getCarrito().producto_Carro)
@@ -115,7 +115,7 @@ namespace tp4EF
                     mercado.eliminarProductoCarro(id_producto_carro);
 
                     /*actualizar grilla*/
-
+                    total_compra = 0;
                     dataGridView1.Rows.Clear();
                     dataGridView1.Refresh();
                     foreach (var producto_carro in mercado.getCarrito().producto_Carro)

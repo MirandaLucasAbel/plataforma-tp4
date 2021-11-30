@@ -40,10 +40,10 @@ namespace Slc_Mercado
             // 
             // login
             // 
-            this.login.Location = new System.Drawing.Point(179, 311);
+            this.login.Location = new System.Drawing.Point(209, 359);
             this.login.Margin = new System.Windows.Forms.Padding(2);
             this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(95, 40);
+            this.login.Size = new System.Drawing.Size(111, 46);
             this.login.TabIndex = 0;
             this.login.Text = "Iniciar Sesion";
             this.login.UseVisualStyleBackColor = true;
@@ -51,26 +51,26 @@ namespace Slc_Mercado
             // 
             // pass
             // 
-            this.pass.Location = new System.Drawing.Point(321, 256);
+            this.pass.Location = new System.Drawing.Point(374, 295);
             this.pass.Margin = new System.Windows.Forms.Padding(2);
             this.pass.Name = "pass";
-            this.pass.Size = new System.Drawing.Size(95, 20);
+            this.pass.Size = new System.Drawing.Size(110, 23);
             this.pass.TabIndex = 1;
             // 
             // dni
             // 
-            this.dni.Location = new System.Drawing.Point(321, 197);
+            this.dni.Location = new System.Drawing.Point(374, 227);
             this.dni.Margin = new System.Windows.Forms.Padding(2);
             this.dni.Name = "dni";
-            this.dni.Size = new System.Drawing.Size(95, 20);
+            this.dni.Size = new System.Drawing.Size(110, 23);
             this.dni.TabIndex = 2;
             // 
             // registro
             // 
-            this.registro.Location = new System.Drawing.Point(321, 311);
+            this.registro.Location = new System.Drawing.Point(374, 359);
             this.registro.Margin = new System.Windows.Forms.Padding(2);
             this.registro.Name = "registro";
-            this.registro.Size = new System.Drawing.Size(95, 40);
+            this.registro.Size = new System.Drawing.Size(111, 46);
             this.registro.TabIndex = 3;
             this.registro.Text = "Registrarse";
             this.registro.UseVisualStyleBackColor = true;
@@ -78,36 +78,39 @@ namespace Slc_Mercado
             // 
             // configurar
             // 
-            this.configurar.Location = new System.Drawing.Point(461, 311);
+            this.configurar.Location = new System.Drawing.Point(538, 359);
             this.configurar.Margin = new System.Windows.Forms.Padding(2);
             this.configurar.Name = "configurar";
-            this.configurar.Size = new System.Drawing.Size(95, 40);
+            this.configurar.Size = new System.Drawing.Size(111, 46);
             this.configurar.TabIndex = 4;
             this.configurar.Text = "Configurar";
             this.configurar.UseVisualStyleBackColor = true;
+            this.configurar.Visible = false;
             this.configurar.Click += new System.EventHandler(this.configurar_Click);
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(318, 172);
+            this.label1.Location = new System.Drawing.Point(371, 198);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(151, 23);
+            this.label1.Size = new System.Drawing.Size(176, 27);
             this.label1.TabIndex = 5;
             this.label1.Text = "Ingrese usuario (n° DNI)";
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(318, 231);
+            this.label2.Location = new System.Drawing.Point(371, 267);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 23);
+            this.label2.Size = new System.Drawing.Size(117, 27);
             this.label2.TabIndex = 6;
             this.label2.Text = "Ingrese contraseña";
             // 
             // FLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ClientSize = new System.Drawing.Size(933, 692);
             this.Controls.Add(this.configurar);
             this.Controls.Add(this.registro);
             this.Controls.Add(this.dni);
