@@ -72,7 +72,7 @@ namespace Slc_Mercado
                 }
             }*/
 
-            if(this.mercado.cantidadArticulos() != 0 )
+            if( this.mercado.cantidadArticulos() != 0 )
             {
                 this.Close();
                 FCarro carroCompra = new FCarro(this.mercado);
@@ -190,6 +190,13 @@ namespace Slc_Mercado
             if (e.StateChanged != DataGridViewElementStates.Selected) return;
 
             // Calculate amount code goes here
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            this.mercado.cerrarSesion();
+            this.Close();
+
         }
     }
 }

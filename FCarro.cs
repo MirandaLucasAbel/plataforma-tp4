@@ -72,14 +72,18 @@ namespace tp4EF
             {
                 if (e.ColumnIndex == 5)
                 {
+                   
                     bool idOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), out id_producto_carro);
                     bool cantOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString(), out cantidad);
                     mercado.modificarProductoCarro(id_producto_carro, cantidad);
                     //MessageBox.Show("modificar");
-                   // dataGridView1.Rows.Clear();
-                   // dataGridView1.Refresh();
+                    // dataGridView1.Rows.Clear();
+                    // dataGridView1.Refresh();
 
                     /*actualizar grilla*/
+
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Refresh();
                     foreach (var producto_carro in mercado.getCarrito().producto_Carro)
                     {
                         List<string> data = new List<string>();
@@ -105,12 +109,15 @@ namespace tp4EF
                 }
                 if (e.ColumnIndex == 6)
                 {
-                    dataGridView1.Rows.Clear();
-                    dataGridView1.Refresh();
+                    data = new List<string>();
+            
                     bool idOK = int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), out id_producto_carro);
                     mercado.eliminarProductoCarro(id_producto_carro);
-                    
+
                     /*actualizar grilla*/
+
+                    dataGridView1.Rows.Clear();
+                    dataGridView1.Refresh();
                     foreach (var producto_carro in mercado.getCarrito().producto_Carro)
                     {
                         List<string> data = new List<string>();
@@ -172,6 +179,10 @@ namespace tp4EF
         private void button4_Click(object sender, EventArgs e)
         {
             mercado.vaciarCarro();
+            this.Close();
+            MessageBox.Show("se vacio el carrito!");
+            FUser Fusuario = new FUser(this.mercado);
+            Fusuario.Show();
         }
     }
 }

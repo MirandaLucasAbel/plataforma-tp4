@@ -99,12 +99,23 @@ namespace tp1
 
         internal int cantidadArticulos()
         {
-            int cantidad = 0;
-            foreach(Producto_Carro pc in usuario.Micarro.producto_Carro)
+            try
             {
-                cantidad += pc.cantidad;
+                int cantidad = 0;
+                foreach (Producto_Carro pc in usuario.Micarro.producto_Carro)
+                {
+                    cantidad += pc.cantidad;
+                }
+                return cantidad;
             }
-            return cantidad;
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+               
+            }
+
+            return 0;
+
         }
 
         public bool agregarProducto (string nombre, double precio, int cantidad, int id_Categoria)

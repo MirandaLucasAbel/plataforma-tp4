@@ -62,17 +62,7 @@ namespace dao
 			Usuario usuario = new Usuario();
 			try
             {
-				/* parcial
-				 * 
-				 */
-				List<Usuario> uss = new List<Usuario>();
-				Console.WriteLine("--------------");
-				foreach (Usuario us in this.contexto.usuarios)
-                {
-					Console.WriteLine(us.nombre);
-					uss.Add(us);
-                }
-				Console.WriteLine("--------------");
+			
 				this.contexto.usuarios.Load();
 
 				usuario = this.contexto.usuarios.Where(U =>( U.dni==dni && U.password==password)).FirstOrDefault();
