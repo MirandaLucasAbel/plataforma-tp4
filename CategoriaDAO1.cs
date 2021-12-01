@@ -54,8 +54,9 @@ namespace dao
                 contexto.categorias.Load();
                 List<Categoria> categorias = this.contexto.categorias.ToList();
                 categorias.Add(categoria);
+                contexto.categorias.Add(categoria);
                 this.contexto.SaveChanges();
-               // this.contexto.categorias.Add(categoria);
+               
                // this.contexto.SaveChanges();
                 return true;
             }
